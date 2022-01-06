@@ -1,0 +1,8 @@
+Ключ API (v3 auth)
+36dd08c6be7ff228989408ce95358e5c
+
+Пример API-запроса
+https://api.themoviedb.org/3/movie/550?api_key=36dd08c6be7ff228989408ce95358e5c
+
+Ключ доступа к API (v4 auth)
+eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNmRkMDhjNmJlN2ZmMjI4OTg5NDA4Y2U5NTM1OGU1YyIsInN1YiI6IjYxZDVmMjRiZDQ4Y2VlMDA0MjI2YjMzMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.f3F7gn-4u_Y3KY444ygLsaJC8CEoW93UFhSH-MmI0Ic
