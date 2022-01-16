@@ -40,7 +40,7 @@
                         android:layout_height="@dimen/main_image_toolbar"
                         android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_baseline_insert_chart_outlined_24"
+                        android:src="@drawable/ic_outline_account_circle_24"
                         app:layout_collapseMode="parallax"
                         android:layout_gravity="center"/>
 

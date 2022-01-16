@@ -9,22 +9,26 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmail.pavlovsv93.whattoseetoday.R
+import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: WhatToSeeViewModel
 
+    private lateinit var binding: FragmentHomeBinding
+
     companion object {
         fun newInstance() = HomeFragment()
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    //return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +52,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderData() {
+        binding.fragmentHomeTextview.setText(R.string.message)
         Toast.makeText(requireContext(), "get data", Toast.LENGTH_SHORT).show();
     }
 }
