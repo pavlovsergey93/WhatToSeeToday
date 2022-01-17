@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.view.ui.main
+package com.gmail.pavlovsv93.whattoseetoday.view.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
+import com.gmail.pavlovsv93.whattoseetoday.view.ui.WhatToSeeViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: WhatToSeeViewModel
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get()= _binding!!
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -26,7 +28,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     //return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -54,5 +56,10 @@ class HomeFragment : Fragment() {
     private fun renderData() {
         binding.fragmentHomeTextview.setText(R.string.message)
         Toast.makeText(requireContext(), "get data", Toast.LENGTH_SHORT).show();
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

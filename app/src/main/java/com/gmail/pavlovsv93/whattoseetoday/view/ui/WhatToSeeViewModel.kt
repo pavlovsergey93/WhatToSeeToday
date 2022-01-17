@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.view.ui.main
+package com.gmail.pavlovsv93.whattoseetoday.view.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
