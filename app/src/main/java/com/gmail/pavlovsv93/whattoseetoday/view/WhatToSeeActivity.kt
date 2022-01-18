@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
-import com.gmail.pavlovsv93.whattoseetoday.view.ui.favorites.FavoritesFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.ui.rating.RatingFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.ui.home.HomeFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.favorites.FavoritesFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.rating.RatingFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
 class WhatToSeeActivity : AppCompatActivity() {
 
@@ -15,17 +15,17 @@ class WhatToSeeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_what_to_see)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
+//            .commit()
 
         binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        binding.mainBottomNavView.setOnItemSelectedListener {it ->
-            when (it.itemId) {
-                R.id.menu_btnnavview_home -> {
+        binding.mainBottomNavView.setOnItemSelectedListener {item ->
+            when (item.itemId) {
+                 R.id.menu_btnnavview_home -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
                         .commit()
@@ -44,7 +44,6 @@ class WhatToSeeActivity : AppCompatActivity() {
                     true
                 }
                 else -> false
-
             }
         }
 

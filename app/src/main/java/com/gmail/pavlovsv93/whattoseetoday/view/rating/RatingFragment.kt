@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.view.ui.rating
+package com.gmail.pavlovsv93.whattoseetoday.view.rating
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentRatingBinding
-import com.gmail.pavlovsv93.whattoseetoday.view.ui.WhatToSeeViewModel
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeRatingViewModel
 
 class RatingFragment : Fragment() {
 
     private var _binding: FragmentRatingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: WhatToSeeViewModel
+    private lateinit var ratingViewModel: WhatToSeeRatingViewModel
 
     companion object {
         fun newInstance() = RatingFragment()
@@ -36,13 +38,13 @@ class RatingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(WhatToSeeViewModel::class.java)
-        viewModel.getData().observe(viewLifecycleOwner, Observer { data ->
-            renderData()
+        ratingViewModel = ViewModelProvider(this).get(WhatToSeeRatingViewModel::class.java)
+        ratingViewModel.getData().observe(viewLifecycleOwner, Observer { state ->
+            renderData(state)
         })
     }
 
-    private fun renderData() {
+    private fun renderData(state : AppState) {
         binding.fragmentRatingTextview.setText(R.string.message)
         Toast.makeText(requireContext(), "get data", Toast.LENGTH_SHORT).show();
     }
