@@ -18,22 +18,22 @@ class MovieDetailFragment : Fragment() {
 
     companion object {
 
-        val ARG_MOVIE: String = "ARG_MOVIE"
+        const val ARG_MOVIE: String = "ARG_MOVIE"
 
         // подход Kotlin
-//        fun newInstance(movie: Movie) = MovieDetailFragment().apply {
-//            arguments = Bundle().apply {
-//                putParcelable(ARG_MOVIE, movie)
-//            }
-//        }
-        // подход Java
-        fun newInstance(movie: Movie): MovieDetailFragment {
-            val mdf = MovieDetailFragment()
-            val data = Bundle()
-            data.putParcelable(ARG_MOVIE, movie)
-            mdf.arguments = data
-            return mdf
+        fun newInstance(movie: Movie) = MovieDetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_MOVIE, movie)
+            }
         }
+        // подход Java
+//        fun newInstance(movie: Movie): MovieDetailFragment {
+//            val mdf = MovieDetailFragment()
+//            val data = Bundle()
+//            data.putParcelable(ARG_MOVIE, movie)
+//            mdf.arguments = data
+//            return mdf
+//        }
     }
 
     override fun onCreateView(
@@ -49,9 +49,9 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val movie = requireArguments().getParcelable(ARG_MOVIE) as? Movie
 
-        with(binding){
+        with(binding) {
             if (movie != null) {
-                if(movie.poster != null) {
+                if (movie.poster != null) {
                     detailsImage.setImageDrawable(movie.poster)
                 }
                 detailsTitle.text = movie.name

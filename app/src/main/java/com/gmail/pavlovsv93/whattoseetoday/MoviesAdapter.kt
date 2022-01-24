@@ -3,18 +3,14 @@ package com.gmail.pavlovsv93.whattoseetoday
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-    interface OnClickCard{
-        fun onClick(movie: Movie)
-    }
+class MoviesAdapter(private var onClickItem: HomeFragment.OnClickItem?) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+
     private var moviesList: MutableList<Movie> = mutableListOf()
 
     fun setMovie(data: MutableList<Movie>?) {
@@ -50,6 +46,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
             itemView.findViewById<TextView>(R.id.item_text_titel).text = movie.name
             itemView.setOnClickListener { View ->
 
+                onClickItem?.onClick(movie)
                 //обработка нажатия на карту фильма
                 Toast.makeText(itemView.context, movie.description, Toast.LENGTH_SHORT).show()
             }

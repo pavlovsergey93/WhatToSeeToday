@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
+import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +26,18 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter = MoviesAdapter()
+    private val adapter = MoviesAdapter(object : OnClickItem{
+        override fun onClick(movie : Movie){
+            val manager = requireActivity().supportFragmentManager
+            if(manager != null){
+                manager.beginTransaction()
+                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie))
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        }
+
+    })
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -92,5 +104,9 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    interface OnClickItem{
+        fun onClick(movie: Movie)
     }
 }
