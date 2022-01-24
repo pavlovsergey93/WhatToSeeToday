@@ -2,6 +2,7 @@ package com.gmail.pavlovsv93.whattoseetoday.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.view.favorites.FavoritesFragment
@@ -14,10 +15,13 @@ class WhatToSeeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_what_to_see)
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-//            .commit()
+        binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
+                .commit()
+        }
 
         binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
         val view = binding.root

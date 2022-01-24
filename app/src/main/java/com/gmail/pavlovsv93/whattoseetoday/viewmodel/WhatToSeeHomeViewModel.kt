@@ -8,28 +8,27 @@ import com.gmail.pavlovsv93.whattoseetoday.model.MovieInterfaceRepository
 import com.gmail.pavlovsv93.whattoseetoday.model.MovieRepository
 import java.lang.Thread.sleep
 
-internal class WhatToSeeHomeViewModel(private val livaDataToObserver : MutableLiveData<AppState> = MutableLiveData()) : ViewModel(), InterfaceViewModel{
+internal class WhatToSeeHomeViewModel(private val livaDataToObserver: MutableLiveData<AppState> = MutableLiveData())
+    : ViewModel(), InterfaceViewModel {
 
-    private val repo : MovieInterfaceRepository = MovieRepository()
+    private val repo: MovieInterfaceRepository = MovieRepository()
 
-    private val moviesListHome : MutableList<Movie>? = null
+    private val moviesListHome: MutableList<Movie>? = null
 
-    override fun getData() : LiveData<AppState> {
-        getDataFromDB()
-        return livaDataToObserver
-    }
+    override fun getData(): LiveData<AppState> = livaDataToObserver
 
-    override fun getDataFromDB(){
-        Thread{
-            livaDataToObserver.postValue(AppState.OnLoading)
-            val random = (0..1).shuffled().last()
-            sleep(4000)
-            if (random == 1){
-                livaDataToObserver.postValue(AppState.OnSuccess(moviesListHome))
-            }
-            else{
-                livaDataToObserver.postValue(AppState.OnError(Throwable("Произошла ошибка")))
-            }
+    override fun getDataFromDB() {
+        livaDataToObserver.value = AppState.OnLoading
+        Thread {
+            sleep(2000)
+//            val random = (0..1).shuffled().last()
+//            if (random == 1){
+//                livaDataToObserver.postValue(AppState.OnSuccess(moviesListHome))
+//            }
+//            else{
+//                livaDataToObserver.postValue(AppState.OnError(Throwable("Произошла ошибка")))
+//            }
+            livaDataToObserver.postValue(AppState.OnSuccess(repo.getHomeMovies()))
         }.start()
     }
 
