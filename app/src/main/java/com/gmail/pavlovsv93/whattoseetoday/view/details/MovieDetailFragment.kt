@@ -47,19 +47,32 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val movie = requireArguments().getParcelable(ARG_MOVIE) as? Movie
-
-        with(binding) {
-            if (movie != null) {
+        arguments?.getParcelable<Movie>(ARG_MOVIE)?.let { movie ->
+            with(binding) {
                 if (movie.poster != null) {
                     detailsImage.setImageDrawable(movie.poster)
                 }
                 detailsTitle.text = movie.name
                 detailsDescription.text = movie.description
             }
+        }}
 
-        }
+        //val movie = requireArguments().getParcelable(ARG_MOVIE) as? Movie
 
+//        with(binding) {
+//            if (movie != null) {
+//                if (movie.poster != null) {
+//                    detailsImage.setImageDrawable(movie.poster)
+//                }
+//                detailsTitle.text = movie.name
+//                detailsDescription.text = movie.description
+//            }
+//
+//        }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
 

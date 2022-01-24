@@ -45,10 +45,7 @@ class MoviesAdapter(private var onClickItem: HomeFragment.OnClickItem?) : Recycl
 //            }
             itemView.findViewById<TextView>(R.id.item_text_titel).text = movie.name
             itemView.setOnClickListener { View ->
-
                 onClickItem?.onClick(movie)
-                //обработка нажатия на карту фильма
-                Toast.makeText(itemView.context, movie.description, Toast.LENGTH_SHORT).show()
             }
         }
     }
