@@ -15,7 +15,7 @@ import com.gmail.pavlovsv93.whattoseetoday.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.showSnackBar
+import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
                     fragmentHomeTextview.isVisible = true
                     fragmentHomeTextview.text = R.string.error.toString()
                 }
-                view?.showSnackBar(text = state.toString(), actionText = getString(R.string.reload), action = {homeViewModel.getDataFromDB()}  )
+                view?.showSnackBarAction(text = state.toString(), actionText = getString(R.string.reload), action = {homeViewModel.getDataFromDB()}  )
 //                Snackbar.make(binding.root, state.toString(), Snackbar.LENGTH_INDEFINITE)
 //                    .setAction("Перезагрузить") {  }
 //                    .show()
