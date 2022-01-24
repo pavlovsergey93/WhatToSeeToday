@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com1/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="@dimen/padding_item_movie">
 
     <androidx.cardview.widget.CardView
@@ -19,27 +19,28 @@
             <ImageView
                 android:id="@+id/item_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_item_movie"
                 android:gravity="center"
-                tools:src="@drawable/ic_baseline_insert_chart_outlined_24"
-                android:layout_marginBottom="@dimen/margin_item_movie"/>
+                android:src="@drawable/ic_baseline_image_not_supported_24"
+                tools:src="@drawable/ic_baseline_image_not_supported_24" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/item_text_titel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_item_movie"
+                android:gravity="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                tools:text="@string/item_title_movie"
-                android:gravity="center"/>
+                tools:text="@string/item_title_movie" />
 
             <RatingBar
                 android:id="@+id/item_rating_bar"
+                style="?android:attr/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                style="?android:attr/rating"
-                android:layout_marginTop="@dimen/margin_item_movie"/>
+                android:layout_marginTop="@dimen/margin_item_movie" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -7,4 +7,6 @@
     <dimen name="height_app_bar">300dp</dimen>
     <dimen name="main_image_toolbar">200dp</dimen>
     <dimen name="margin_bottom_toolbar">16dp</dimen>
+    <dimen name="size_item_image_horizont">150dp</dimen>
+    <dimen name="size_item_image_vertical">70dp</dimen>
 </resources>
