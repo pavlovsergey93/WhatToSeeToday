@@ -11,14 +11,14 @@ class WhatToSeeFavoritesViewModel(private val livaDataToObserver: MutableLiveDat
     private val moviesListFavorites : MutableList<Movie>? = null
 
     override fun getData(): LiveData<AppState> {
-        getDataFromDB()
+        getPopularMovies()
         return livaDataToObserver
     }
 
-    override fun getDataFromDB() {
+    override fun getPopularMovies() {
         Thread{
             Thread.sleep(4000)
-            livaDataToObserver.postValue(AppState.OnSuccess(moviesListFavorites))
+            //livaDataToObserver.postValue(AppState.OnSuccess(moviesListFavorites))
         }.start()
     }
 }

@@ -11,14 +11,14 @@ class WhatToSeeRatingViewModel(private val livaDataToObserver : MutableLiveData<
     private val moviesListRating : MutableList<Movie>? = null
 
     override fun getData(): LiveData<AppState> {
-        getDataFromDB()
+        getPopularMovies()
         return livaDataToObserver
     }
 
-    override fun getDataFromDB() {
+    override fun getPopularMovies() {
         Thread{
             Thread.sleep(4000)
-            livaDataToObserver.postValue(AppState.OnSuccess(moviesListRating))
+            //livaDataToObserver.postValue(AppState.OnSuccess(moviesListRating))
         }.start()
     }
 }

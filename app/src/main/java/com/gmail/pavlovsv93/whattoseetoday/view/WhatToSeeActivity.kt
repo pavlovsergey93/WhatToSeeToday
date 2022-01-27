@@ -2,14 +2,18 @@ package com.gmail.pavlovsv93.whattoseetoday.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintLayout
+import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.view.favorites.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.rating.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
+const val API_KEY = BuildConfig.TMDB_API_KEY
+
 class WhatToSeeActivity : AppCompatActivity() {
+
+
 
     private lateinit var binding: ActivityWhatToSeeBinding
 

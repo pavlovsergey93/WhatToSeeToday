@@ -5,5 +5,5 @@ import androidx.lifecycle.LiveData
 interface InterfaceViewModel {
     fun getData() : LiveData<AppState>
 
-    fun getDataFromDB()
+    fun getPopularMovies()
 }

@@ -1,5 +1,6 @@
 package com.gmail.pavlovsv93.whattoseetoday.view.details
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +51,7 @@ class MovieDetailFragment : Fragment() {
         arguments?.getParcelable<Movie>(ARG_MOVIE)?.let { movie ->
             with(binding) {
                 if (movie.poster != null) {
-                    detailsImage.setImageDrawable(movie.poster)
+                    detailsImage.setImageURI(Uri.parse(movie.poster))
                 }
                 detailsTitle.text = movie.name
                 detailsDescription.text = movie.description
