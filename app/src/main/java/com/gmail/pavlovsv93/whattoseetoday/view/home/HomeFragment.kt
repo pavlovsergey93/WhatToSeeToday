@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,15 +17,15 @@ import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: WhatToSeeHomeViewModel
+    private lateinit var homeViewModel: WhatToSeeViewModel
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
     private val adapter = MoviesAdapter(object : OnClickItem{
         override fun onClick(movie : Movie){
             val manager = requireActivity().supportFragmentManager
@@ -56,12 +55,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView : RecyclerView = binding.fragmentHomeContainer
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val recyclerView : RecyclerView = binding.fragmentHomeContainerPopular
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.adapter = adapter
 
-        binding.fragmentHomeContainer.adapter = adapter
-
-        homeViewModel = ViewModelProvider(this).get(WhatToSeeHomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this).get(WhatToSeeViewModel::class.java)
 
         // Выполняем отслеживание по изменениям liveData. ДЕЙСТВИЕ 1
         val observer = Observer<AppState> { state ->
@@ -75,7 +73,7 @@ class HomeFragment : Fragment() {
         /*viewModel.getData().observe(viewLifecycleOwner, Observer { data ->
             renderData()
         })*/
-        homeViewModel.getPopularMovies()
+        homeViewModel.getNewMovies()
 
     }
 
@@ -85,7 +83,7 @@ class HomeFragment : Fragment() {
             is AppState.OnError -> {
                 binding.fragmentHomeTextview.isVisible = true
                 binding.fragmentHomeTextview.text = R.string.error.toString()
-                view?.showSnackBarAction(state.toString(),getString(R.string.reload), {homeViewModel.getPopularMovies()})
+                view?.showSnackBarAction(state.toString(),getString(R.string.reload), {homeViewModel.getNewMovies()})
             }
             is AppState.OnSuccess -> {
                 adapter.setMovie(state.moviesData)

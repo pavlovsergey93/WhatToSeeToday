@@ -10,4 +10,5 @@
     <color name="btn_navig_view">#3F74B5</color>
     <color name="btn_navig_view_icon">#1332FD</color>
     <color name="btn_navig_view_text">#FFFFFF</color>
+    <color name="background_title_list">#9C27B0</color>
 </resources>

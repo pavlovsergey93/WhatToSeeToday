@@ -13,8 +13,6 @@ const val API_KEY = BuildConfig.TMDB_API_KEY
 
 class WhatToSeeActivity : AppCompatActivity() {
 
-
-
     private lateinit var binding: ActivityWhatToSeeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
