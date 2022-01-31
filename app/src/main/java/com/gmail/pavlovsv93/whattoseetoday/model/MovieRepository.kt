@@ -8,6 +8,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
+import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
@@ -118,7 +119,7 @@ class MovieRepository : MovieInterfaceRepository {
                     id = movieDTO.id,
                     name = movieDTO.title,
                     description = movieDTO.overview,
-                    poster = movieDTO.backdrop_path,
+                    poster = BASE_URL + movieDTO.id + "/image?api_key="+ API_KEY,
                     rating = movieDTO.vote_average
                 )
             )
