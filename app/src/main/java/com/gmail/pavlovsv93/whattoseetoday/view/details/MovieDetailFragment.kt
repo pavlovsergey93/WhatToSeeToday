@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.gmail.pavlovsv93.whattoseetoday.MoviesDetailsService
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentMovieDetailBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 
@@ -111,6 +110,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun display(movie: Movie) {
         with(binding) {
+            detailsProgressBar.isVisible = false
             if (movie.poster != null) {
 
             }

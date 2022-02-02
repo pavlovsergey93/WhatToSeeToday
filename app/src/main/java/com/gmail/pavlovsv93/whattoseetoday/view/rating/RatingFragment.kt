@@ -35,7 +35,7 @@ class RatingFragment : Fragment() {
             if(manager != null){
                 manager.beginTransaction()
                     .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie.id))
-                    .addToBackStack("HomeFragment")
+                    .addToBackStack("RatingFragment")
                     .commit()
             }
         }
@@ -65,7 +65,7 @@ class RatingFragment : Fragment() {
         ratingViewModel.getData().observe(viewLifecycleOwner, Observer { state ->
             renderData(state)
         })
-        ratingViewModel.getRatingMovies()
+        ratingViewModel.getCatalogMoviesRetrofit("top_rated")
     }
 
     private fun renderData(state : AppState) {

@@ -1,10 +1,16 @@
-package com.gmail.pavlovsv93.whattoseetoday
+package com.gmail.pavlovsv93.whattoseetoday.view.details
 
 import android.app.IntentService
 import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieInterfaceRepository
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieRepository
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.RemoteDataSource
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
-import com.gmail.pavlovsv93.whattoseetoday.view.details.*
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.InterfaceViewModel
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -68,12 +74,13 @@ class MoviesDetailsService(name: String = "MovieDetails") : IntentService(name) 
         if (movieDTO.id == null) {
             onEmptyResponse()
         } else {
-            onSuccessReponse(movieDTO.title, movieDTO.overview, movieDTO.vote_average, movieDTO.backdrop_path, movieDTO.id)
+            onSuccessResponse(movieDTO.title, movieDTO.overview, movieDTO.vote_average, movieDTO.backdrop_path, movieDTO.id)
         }
 
     }
 
-    private fun onSuccessReponse(
+
+    private fun onSuccessResponse(
         title: String,
         overview: String,
         voteAverage: Double,
@@ -110,6 +117,7 @@ class MoviesDetailsService(name: String = "MovieDetails") : IntentService(name) 
         broadcastIntent.putExtra(DETAIL_LOAD_RESULT_EXTRA, result)
 
     }
+
 }
 
 
