@@ -98,7 +98,7 @@ internal class WhatToSeeViewModel(
                 id = serverResponse.id,
                 name = serverResponse.title,
                 description = serverResponse.overview,
-                poster = serverResponse.backdrop_path,
+                poster = serverResponse.poster_path,
                 rating = serverResponse.vote_average
             )
         )
@@ -140,7 +140,7 @@ internal class WhatToSeeViewModel(
                         id = results[i].id,
                         name = results[i].title,
                         description = results[i].overview,
-                        poster = results[i].backdrop_path,
+                        poster = results[i].poster_path,
                         rating = results[i].vote_average
                     )
                 )
