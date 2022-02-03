@@ -1,16 +1,10 @@
-package com.gmail.pavlovsv93.whattoseetoday.view.details
+package com.gmail.pavlovsv93.whattoseetoday.service
 
 import android.app.IntentService
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieInterfaceRepository
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieRepository
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.RemoteDataSource
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.InterfaceViewModel
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
+import com.gmail.pavlovsv93.whattoseetoday.view.details.*
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -74,7 +68,7 @@ class MoviesDetailsService(name: String = "MovieDetails") : IntentService(name) 
         if (movieDTO.id == null) {
             onEmptyResponse()
         } else {
-            onSuccessResponse(movieDTO.title, movieDTO.overview, movieDTO.vote_average, movieDTO.backdrop_path, movieDTO.id)
+            onSuccessResponse(movieDTO.title, movieDTO.overview, movieDTO.vote_average, movieDTO.backdrop_path, movieDTO.id, movieDTO.release_date)
         }
 
     }
@@ -85,7 +79,8 @@ class MoviesDetailsService(name: String = "MovieDetails") : IntentService(name) 
         overview: String,
         voteAverage: Double,
         backdropPath: String,
-        id: Int
+        id: Int,
+        releaseDate: String
     ) {
         putLoadResult(DETAIL_RESPONSE_SUCCESS_EXTRA)
         broadcastIntent.putExtra(DETAIL_TITLE_SUCCESS_EXTRA,title)
@@ -93,6 +88,7 @@ class MoviesDetailsService(name: String = "MovieDetails") : IntentService(name) 
         broadcastIntent.putExtra(DETAIL_RATING_SUCCESS_EXTRA,voteAverage)
         broadcastIntent.putExtra(DETAIL_POSTER_SUCCESS_EXTRA,backdropPath)
         broadcastIntent.putExtra(DETAIL_ID_SUCCESS_EXTRA,id)
+        broadcastIntent.putExtra(DETAIL_RELEASE_DATE_SUCCESS_EXTRA,releaseDate)
         sendBroadcast(broadcastIntent)
 
     }

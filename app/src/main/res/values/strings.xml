@@ -11,4 +11,9 @@
     <string name="error">Ошибка загрузки!</string>
     <string name="reload">Перезагрузить</string>
     <string name="tools_text">Популярные</string>
+    <string name="num_stars">1</string>
+    <string name="step_stars">0.1</string>
+    <string name="rating">8.9</string>
+    <string name="btn_text_home"><![CDATA[ЕЩЕ >>>]]></string>
+    <string name="new_movies">Новинки</string>
 </resources>

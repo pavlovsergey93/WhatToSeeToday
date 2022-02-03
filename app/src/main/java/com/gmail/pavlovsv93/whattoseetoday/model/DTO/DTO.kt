@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.model
+package com.gmail.pavlovsv93.whattoseetoday.model.DTO
 
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US  СВЕДЕНЬЯ О ФИЛЬМЕ
 

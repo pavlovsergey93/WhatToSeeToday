@@ -8,23 +8,30 @@ data class Movie(
     var name: String?,
     var description: String?,
     var poster: String?,
-    var rating: Double
+    var rating: Double?,
+    val date: String?
     ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readDouble()
+        parcel.readDouble(),
+        parcel.readString()
     ) {
     }
 
-    override fun describeContents(): Int {
-        TODO("Not yet implemented")
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeString(poster)
+        parcel.writeDouble(rating!!)
+        parcel.writeString(date)
     }
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("Not yet implemented")
+    override fun describeContents(): Int {
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<Movie> {

@@ -9,8 +9,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.RemoteDataSource
+import com.gmail.pavlovsv93.whattoseetoday.model.db.MoviesEntity
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
 import com.google.gson.Gson
@@ -21,7 +23,6 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
-import retrofit2.Call
 
 class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInterfaceRepository {
 
@@ -133,7 +134,8 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
                     name = movieDTO.title,
                     description = movieDTO.overview,
                     poster = BASE_URL + movieDTO.id + "/image?api_key="+ API_KEY,
-                    rating = movieDTO.vote_average
+                    rating = movieDTO.vote_average,
+                    date = movieDTO.release_date
                 )
             )
         }

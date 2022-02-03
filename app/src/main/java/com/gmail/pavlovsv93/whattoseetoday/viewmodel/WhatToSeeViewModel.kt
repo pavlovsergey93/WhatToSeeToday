@@ -3,13 +3,17 @@ package com.gmail.pavlovsv93.whattoseetoday.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieInterfaceRepository
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieRepository
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.RemoteDataSource
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.RemoteDataSource
+import com.gmail.pavlovsv93.whattoseetoday.model.db.AppDB
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomInterfaceRepository
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomRepository
 import retrofit2.Call
 import retrofit2.Response
 
@@ -18,9 +22,11 @@ private const val PROJECT_ERROR = "Ошибка приложения"
 private const val CORRUPTED_DATA = "Потеря данных"
 
 internal class WhatToSeeViewModel(
-    private val livaDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
-    private val repo: MovieInterfaceRepository = MovieRepository(RemoteDataSource())
+        private val livaDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
+        private val repo: MovieInterfaceRepository = MovieRepository(RemoteDataSource())
 ) : ViewModel(), InterfaceViewModel {
+
+    private val repoRoom : RoomInterfaceRepository = RoomRepository(AppDB.getMoviesDAO())
 
     override fun getData(): LiveData<AppState> = livaDataToObserver
 
@@ -64,6 +70,7 @@ internal class WhatToSeeViewModel(
             }
         })
     }
+
     //-------------------------------------------------------------------------
 
     // Получение данных Retrofit
@@ -99,7 +106,8 @@ internal class WhatToSeeViewModel(
                 name = serverResponse.title,
                 description = serverResponse.overview,
                 poster = serverResponse.poster_path,
-                rating = serverResponse.vote_average
+                rating = serverResponse.vote_average,
+                date = serverResponse.release_date
             )
         )
     }
@@ -141,7 +149,8 @@ internal class WhatToSeeViewModel(
                         name = results[i].title,
                         description = results[i].overview,
                         poster = results[i].poster_path,
-                        rating = results[i].vote_average
+                        rating = results[i].vote_average,
+                        date = results[i].release_date
                     )
                 )
             }
@@ -158,6 +167,32 @@ internal class WhatToSeeViewModel(
     fun getMovieRetrofit(idMovie: Int) {
         livaDataToObserver.value = AppState.OnLoading
         repo.getMovieRetrofit(idMovie = idMovie, callback = callBackMovie)
+    }
+    //----------------------------------------------------------------------------------------------
+
+    override fun getMoviesDB() {
+        repoRoom.getAllLocalMovies()
+    }
+
+    override fun setMovieInFavorite(movie: Movie) {
+        repoRoom.setItemInDB(movie)
+    }
+
+    override fun delMovieOnFavorite(idMovie: Int) {
+        repoRoom.delItemToTheDB(idMovie = idMovie)
+    }
+    override fun getMoviesFavorite() {
+        livaDataToObserver.value = AppState.OnLoading
+        repoRoom.getLocalAll(object : Callback<MutableList<Movie>>{
+            override fun onSuccess(result: MutableList<Movie>) {
+                livaDataToObserver.postValue(AppState.OnSuccess(result))
+            }
+
+            override fun onError(exception: Throwable) {
+                livaDataToObserver.postValue(AppState.OnError(exception))
+            }
+
+        })
     }
 
 

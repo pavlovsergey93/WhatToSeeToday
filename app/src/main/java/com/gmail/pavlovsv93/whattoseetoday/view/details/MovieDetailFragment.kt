@@ -13,7 +13,8 @@ import androidx.fragment.app.Fragment
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentMovieDetailBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE
+import com.gmail.pavlovsv93.whattoseetoday.service.MoviesDetailsService
+import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE_ORIGIN
 import com.squareup.picasso.Picasso
 
 const val DETAIL_INTENT_FILTER = "DETAIL_INTENT_FILTER"
@@ -31,6 +32,7 @@ const val DETAIL_OVERVIEW_SUCCESS_EXTRA = "DETAIL_OVERVIEW_SUCCESS_EXTRA"
 const val DETAIL_POSTER_SUCCESS_EXTRA = "DETAIL_POSTER_SUCCESS_EXTRA"
 const val DETAIL_ID_SUCCESS_EXTRA = "DETAIL_ID_SUCCESS_EXTRA"
 const val DETAIL_RATING_SUCCESS_EXTRA = "DETAIL_RATING_SUCCESS_EXTRA"
+const val DETAIL_RELEASE_DATE_SUCCESS_EXTRA = "DETAIL_RELEASE_DATE_SUCCESS_EXTRA"
 
 class MovieDetailFragment : Fragment() {
 
@@ -101,9 +103,10 @@ class MovieDetailFragment : Fragment() {
                     Movie(
                         name = intent.getStringExtra(DETAIL_TITLE_SUCCESS_EXTRA)!!,
                         description = intent.getStringExtra(DETAIL_OVERVIEW_SUCCESS_EXTRA)!!,
-                        rating = intent.getDoubleExtra(DETAIL_RATING_SUCCESS_EXTRA,0.0),
-                        id = intent.getIntExtra(DETAIL_ID_SUCCESS_EXTRA,0),
-                        poster = intent.getStringExtra(DETAIL_POSTER_SUCCESS_EXTRA,)
+                        rating = intent.getDoubleExtra(DETAIL_RATING_SUCCESS_EXTRA, 0.0),
+                        id = intent.getIntExtra(DETAIL_ID_SUCCESS_EXTRA, 0),
+                        poster = intent.getStringExtra(DETAIL_POSTER_SUCCESS_EXTRA),
+                        date = intent.getStringExtra(DETAIL_RELEASE_DATE_SUCCESS_EXTRA)!!
                     )
                 )
                 else -> TODO()
@@ -115,12 +118,16 @@ class MovieDetailFragment : Fragment() {
         with(binding) {
             detailsProgressBar.isVisible = false
             Picasso.with(context)
-                .load(BASE_URL_IMAGE+movie.poster)
+                .load(BASE_URL_IMAGE_ORIGIN + movie.poster)
+                .centerCrop()
+                .resize(1600,900)
                 .placeholder(R.drawable.ic_baseline_image_not_supported_24)
                 .into(detailsImage)
-            detailsTitle.text = movie.name
+            detailsTitle.text = (movie.name + " (" + movie.date?.dropLast(6) + ")")
             detailsDescription.text = movie.description
-            detailsRating.rating = movie.rating.toFloat()
+            detailsRating.rating = movie.rating!!.toFloat()
+            detailsTextRating.text = movie.rating.toString()
+
         }
     }
 

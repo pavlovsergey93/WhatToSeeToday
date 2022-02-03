@@ -1,11 +1,9 @@
-package com.gmail.pavlovsv93.whattoseetoday.model.repo
+package com.gmail.pavlovsv93.whattoseetoday.model.DTO
 
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieDatabaseAPI
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_RETROFIT
 import com.google.gson.GsonBuilder
-import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

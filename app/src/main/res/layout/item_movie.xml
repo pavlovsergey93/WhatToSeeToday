@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com1/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/card_item_movie"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_item_movie">
+    android:layout_gravity="center">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_item_movie"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/item_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_item_movie"
-                android:gravity="center"
-                android:src="@drawable/ic_baseline_image_not_supported_24"
-                tools:src="@drawable/ic_baseline_image_not_supported_24" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/item_text_titel"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_movie"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                tools:text="@string/item_title_movie" />
-
-            <RatingBar
-                android:id="@+id/item_rating_bar"
-                style="?android:attr/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_item_movie" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</FrameLayout>
+                android:layout_marginBottom="@dimen/margin_item_movie"
+                tools:src="@drawable/ic_baseline_image_not_supported_24" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:background="@drawable/roundedbutton"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/margin_item_movie"
+                android:layout_margin="@dimen/margin_item_movie">
+
+                <RatingBar
+                    android:id="@+id/item_rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:numStars="@string/num_stars"
+                    android:stepSize="@string/step_stars" />
+
+                <TextView
+                    android:id="@+id/text_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:textSize="@dimen/size_text_item_rating"
+                    tools:text="@string/rating" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/image_btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_margin="@dimen/margin_item_movie"
+                android:background="@drawable/roundedbutton"
+                android:src="@drawable/ic_baseline_favorite_border_24" />
+
+        </FrameLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_text_titel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_movie"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textSize="@dimen/size_text_item_movie"
+            tools:text="@string/item_title_movie" />
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
