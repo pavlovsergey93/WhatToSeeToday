@@ -26,4 +26,6 @@ interface InterfaceViewModel {
     fun setMovieInJournal(movie: Movie)
 
     fun delMovieOnJournal(idMovie: Int)
+
+    fun findMoviesOnDB(findStr: String)
 }

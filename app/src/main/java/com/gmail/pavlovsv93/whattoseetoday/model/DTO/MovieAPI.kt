@@ -22,4 +22,13 @@ interface MovieDatabaseAPI {
         @Query("api_key") apiKey: String,
         @Query("language") lang: String
     ): Call<MovieDTO>
+
+    @GET("3/search/movie?")
+    fun getFindMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") lang: String,
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("include_adult") includeAdult: Boolean
+    ): Call<MoviesListDTO>
 }

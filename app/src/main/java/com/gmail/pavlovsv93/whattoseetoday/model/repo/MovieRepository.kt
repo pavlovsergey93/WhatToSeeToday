@@ -8,11 +8,8 @@ import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.*
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.DTO.RemoteDataSource
-import com.gmail.pavlovsv93.whattoseetoday.model.db.MoviesEntity
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
 import com.google.gson.Gson
@@ -114,6 +111,8 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
         remoteDataSource.getMovieDetailsRetrofit(idMovie = idMovie, lang = lang, callback = callback)
     }
 
+
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getData(uri: String, page: Int = 1): String {
 
@@ -140,6 +139,15 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
             )
         }
         return moviesList
+    }
+    override fun findMoviesonDB(
+        findStr: String,
+        lang: String,
+        page: Int,
+        includeAdult: Boolean,
+        callback: retrofit2.Callback<MoviesListDTO>
+    ) {
+        remoteDataSource.findMovies(query = findStr, lang = lang, page = page, includeAdult = includeAdult,callback = callback)
     }
 
 }

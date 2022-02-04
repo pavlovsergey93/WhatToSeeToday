@@ -19,4 +19,6 @@
     <string name="menu_navview_setting_title">Настройки</string>
     <string name="menu_navview_journal_title">Журнал</string>
     <string name="is_empty">History is empty!</string>
+    <string name="search">Поиск</string>
+    <string name="text_sheet">Not find :(</string>
 </resources>

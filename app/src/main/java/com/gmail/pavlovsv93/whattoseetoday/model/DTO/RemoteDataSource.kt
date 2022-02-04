@@ -18,7 +18,7 @@ class RemoteDataSource {
         ).build()
         .create(MovieDatabaseAPI::class.java)
 
-    fun getMovieDetailsRetrofit(idMovie: Int, lang: String,callback: Callback<MovieDTO>) {
+    fun getMovieDetailsRetrofit(idMovie: Int, lang: String, callback: Callback<MovieDTO>) {
         movieAPI.getDetailsMovie(
             idMovie = idMovie,
             apiKey = BuildConfig.TMDB_API_KEY,
@@ -37,6 +37,22 @@ class RemoteDataSource {
             apiKey = BuildConfig.TMDB_API_KEY,
             lang = lang,
             page = page
+        ).enqueue(callback)
+    }
+
+    fun findMovies(
+        query: String,
+        lang: String,
+        page: Int,
+        includeAdult: Boolean,
+        callback: Callback<MoviesListDTO>
+    ) {
+        movieAPI.getFindMovies(
+            apiKey = BuildConfig.TMDB_API_KEY,
+            lang = lang,
+            query = query,
+            page = page,
+            includeAdult = includeAdult
         ).enqueue(callback)
     }
 }

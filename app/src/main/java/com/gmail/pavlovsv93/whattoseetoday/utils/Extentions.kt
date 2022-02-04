@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday
+package com.gmail.pavlovsv93.whattoseetoday.utils
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

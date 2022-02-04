@@ -13,7 +13,7 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentListDetailsBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
+import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel

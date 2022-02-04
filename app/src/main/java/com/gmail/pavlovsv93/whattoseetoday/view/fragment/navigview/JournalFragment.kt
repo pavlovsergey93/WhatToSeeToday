@@ -14,9 +14,8 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentJournalBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
+import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.InterfaceViewModel
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.JournalAdapter
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 

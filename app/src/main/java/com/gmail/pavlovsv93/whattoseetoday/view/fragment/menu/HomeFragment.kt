@@ -14,7 +14,7 @@ import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
+import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
 
     private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
         override fun onClick(movie: Movie) {
-            if(homeViewModel.findItemInJournal(idMovie = movie.id)){
+            if (homeViewModel.findItemInJournal(idMovie = movie.id)) {
                 homeViewModel.delMovieOnJournal(idMovie = movie.id)
             }
             homeViewModel.setMovieInJournal(movie = movie)
@@ -43,12 +43,12 @@ class HomeFragment : Fragment() {
             val manager = requireActivity().supportFragmentManager
             if (manager != null) {
                 manager.beginTransaction()
-                        .replace(
-                                R.id.main_whattosee_container,
-                                MovieDetailFragment.newInstance(movie.id)
-                        )
-                        .addToBackStack("HomeFragment")
-                        .commit()
+                    .replace(
+                        R.id.main_whattosee_container,
+                        MovieDetailFragment.newInstance(movie.id)
+                    )
+                    .addToBackStack("HomeFragment")
+                    .commit()
             }
         }
 
@@ -63,13 +63,15 @@ class HomeFragment : Fragment() {
     })
 
     companion object {
+
         fun newInstance() = HomeFragment()
+
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -79,14 +81,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val recyclerView: RecyclerView = binding.fragmentHomeContainerPopular
         recyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
 
         homeViewModel = ViewModelProvider(this).get(
-                WhatToSeeViewModel::
-                class.java
+            WhatToSeeViewModel::
+            class.java
         )
 
         // Выполняем отслеживание по изменениям liveData. ДЕЙСТВИЕ 1
@@ -101,8 +104,8 @@ class HomeFragment : Fragment() {
         /*viewModel.getData().observe(viewLifecycleOwner, Observer { data ->
             renderData()
         })*/
+
         homeViewModel.getCatalogMoviesRetrofit("now_playing")
-        //homeViewModel.getNewMovies()
 
     }
 
@@ -113,12 +116,13 @@ class HomeFragment : Fragment() {
                 binding.fragmentHomeTextview.isVisible = true
                 binding.fragmentHomeTextview.text = R.string.error.toString()
                 view?.showSnackBarAction(
-                        state.toString(),
-                        getString(R.string.reload),
-                        { homeViewModel.getNewMovies() })
+                    state.toString(),
+                    getString(R.string.reload),
+                    { homeViewModel.getNewMovies() })
             }
             is AppState.OnSuccess -> {
                 adapter.setMovie(state.moviesData)
+                binding.fragmentHomeContainerPopular.isVisible = true
                 binding.fragmentProgbarHome.isVisible = false
                 if (state.moviesData?.size != 0) {
                     binding.fragmentHomeTextview.isVisible = false

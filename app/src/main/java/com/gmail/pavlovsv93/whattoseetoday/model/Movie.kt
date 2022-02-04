@@ -7,7 +7,7 @@ data class Movie(
     var id: Int,
     var name: String?,
     var description: String?,
-    var poster: String?,
+    var poster: String? = null,
     var rating: Double?,
     val date: String?
     ) : Parcelable {
