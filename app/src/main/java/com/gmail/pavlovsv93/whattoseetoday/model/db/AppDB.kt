@@ -14,7 +14,9 @@ class AppDB : Application() {
     companion object {
         private var instance: AppDB? = null
         private var database: MoviesDB? = null
+        private var databaseJournal: JournalDB? = null
         private const val DB_NAME = "MoviesFavorite"
+        private const val DB_NAME_JOURNAL = "MoviesJournal"
 
         fun getMoviesDAO(): MoviesDAO {
             if (database == null) {
@@ -30,6 +32,22 @@ class AppDB : Application() {
                 }
             }
             return database!!.moviesDAO()
+        }
+
+        fun getJournalDAO(): JournalDAO {
+            if (databaseJournal == null) {
+                synchronized(MoviesDB::class.java) {
+                    if (databaseJournal == null) {
+                        if (instance == null) {
+                            throw IllegalAccessException("Application is null")
+                        }
+                        databaseJournal = Room.databaseBuilder(instance!!.applicationContext, JournalDB::class.java, DB_NAME_JOURNAL)
+                                .allowMainThreadQueries()
+                                .build()
+                    }
+                }
+            }
+            return databaseJournal!!.journalDAO()
         }
     }
 

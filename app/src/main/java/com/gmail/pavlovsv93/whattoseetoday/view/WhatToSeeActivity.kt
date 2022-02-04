@@ -2,6 +2,8 @@ package com.gmail.pavlovsv93.whattoseetoday.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
@@ -9,6 +11,8 @@ import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.JournalFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.SettingFragment
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
 const val BASE_URL = "https://api.themoviedb.org/3/movie/"
@@ -22,7 +26,7 @@ class WhatToSeeActivity : AppCompatActivity() {
 
     interface OnClickItem {
         fun onClick(movie: Movie)
-        fun onClickFavorite(movie: Movie, flag: Boolean)
+        fun onClickFavorite(movie: Movie)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,36 +35,69 @@ class WhatToSeeActivity : AppCompatActivity() {
         setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-                .commit()
+                    .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
+                    .commit()
         }
 
         binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        binding.mainBottomNavView.setOnItemSelectedListener {item ->
+        binding.mainBottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                 R.id.menu_btnnavview_home -> {
+                R.id.menu_btnnavview_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-                        .commit()
+                            .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
+                            .commit()
                     true
                 }
                 R.id.menu_btnnavview_favorite -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, FavoritesFragment.newInstance())
-                        .commit()
+                            .replace(R.id.main_whattosee_container, FavoritesFragment.newInstance())
+                            .commit()
                     true
                 }
                 R.id.menu_btnnavview_rating -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, RatingFragment.newInstance())
-                        .commit()
+                            .replace(R.id.main_whattosee_container, RatingFragment.newInstance())
+                            .commit()
                     true
                 }
                 else -> false
             }
+        }
+
+        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
+                this,
+                binding.mainDrawerLayout,
+                binding.mainToolbar,
+                R.string.appbar_scrolling_view_behavior,
+                R.string.bottom_sheet_behavior
+        )
+        binding.mainDrawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        binding.mainNavView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_navview_setting -> {
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_whattosee_container, SettingFragment.newInstance())
+                            .addToBackStack("Setting")
+                            .commit()
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.menu_navview_journal -> {
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_whattosee_container, JournalFragment.newInstance())
+                            .addToBackStack("Journal")
+                            .commit()
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                else -> false
+            }
+
         }
 
     }

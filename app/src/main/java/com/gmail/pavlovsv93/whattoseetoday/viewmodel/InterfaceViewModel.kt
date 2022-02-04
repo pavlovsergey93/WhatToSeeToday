@@ -20,4 +20,10 @@ interface InterfaceViewModel {
     fun delMovieOnFavorite(idMovie: Int)
 
     fun getMoviesDB()
+
+    fun getJournal()
+
+    fun setMovieInJournal(movie: Movie)
+
+    fun delMovieOnJournal(idMovie: Int)
 }

@@ -17,8 +17,6 @@ import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.model.AppState
-import com.gmail.pavlovsv93.whattoseetoday.model.db.AppDB
-import com.gmail.pavlovsv93.whattoseetoday.model.db.MoviesEntity
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 
@@ -37,6 +35,11 @@ class HomeFragment : Fragment() {
 
     private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
         override fun onClick(movie: Movie) {
+            if(homeViewModel.findItemInJournal(idMovie = movie.id)){
+                homeViewModel.delMovieOnJournal(idMovie = movie.id)
+            }
+            homeViewModel.setMovieInJournal(movie = movie)
+
             val manager = requireActivity().supportFragmentManager
             if (manager != null) {
                 manager.beginTransaction()
@@ -49,8 +52,8 @@ class HomeFragment : Fragment() {
             }
         }
 
-        override fun onClickFavorite(movie: Movie, flag: Boolean) {
-            if (!flag) {
+        override fun onClickFavorite(movie: Movie) {
+            if (!homeViewModel.findItemInMovieDB(movie.id)) {
                 homeViewModel.setMovieInFavorite(movie)
             } else {
                 homeViewModel.delMovieOnFavorite(idMovie = movie.id)

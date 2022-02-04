@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
@@ -29,7 +28,11 @@ class RatingFragment : Fragment() {
     private lateinit var ratingViewModel: WhatToSeeViewModel
 
     private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
-        override fun onClick(movie : Movie){
+        override fun onClick(movie: Movie){
+            if(ratingViewModel.findItemInJournal(idMovie = movie.id)){
+                ratingViewModel.delMovieOnJournal(idMovie = movie.id)
+            }
+            ratingViewModel.setMovieInJournal(movie = movie)
             val manager = requireActivity().supportFragmentManager
             if(manager != null){
                 manager.beginTransaction()
@@ -39,8 +42,8 @@ class RatingFragment : Fragment() {
             }
         }
 
-        override fun onClickFavorite(movie: Movie, flag: Boolean) {
-            if (!flag) {
+        override fun onClickFavorite(movie: Movie) {
+            if (ratingViewModel.findItemInMovieDB(movie.id)) {
                 ratingViewModel.setMovieInFavorite(movie)
             } else {
                 ratingViewModel.delMovieOnFavorite(idMovie = movie.id)

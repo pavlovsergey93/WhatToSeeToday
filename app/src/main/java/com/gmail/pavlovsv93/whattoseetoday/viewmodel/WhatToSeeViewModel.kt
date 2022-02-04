@@ -8,12 +8,9 @@ import com.gmail.pavlovsv93.whattoseetoday.model.Callback
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieInterfaceRepository
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieRepository
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.RemoteDataSource
 import com.gmail.pavlovsv93.whattoseetoday.model.db.AppDB
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomInterfaceRepository
-import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomRepository
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -26,6 +23,7 @@ internal class WhatToSeeViewModel(
         private val repo: MovieInterfaceRepository = MovieRepository(RemoteDataSource())
 ) : ViewModel(), InterfaceViewModel {
 
+    private val repoJournal: RoomInterfaceJournalRepository = RoomJournalRepository(AppDB.getJournalDAO())
     private val repoRoom : RoomInterfaceRepository = RoomRepository(AppDB.getMoviesDAO())
 
     override fun getData(): LiveData<AppState> = livaDataToObserver
@@ -194,6 +192,33 @@ internal class WhatToSeeViewModel(
 
         })
     }
+
+    override fun getJournal() {
+        livaDataToObserver.value = AppState.OnLoading
+        repoJournal.getLocalAllJournal(object : Callback<MutableList<Movie>>{
+            override fun onSuccess(result: MutableList<Movie>) {
+                livaDataToObserver.postValue(AppState.OnSuccess(result))
+            }
+
+            override fun onError(exception: Throwable) {
+                livaDataToObserver.postValue(AppState.OnError(exception))
+            }
+        })
+    }
+
+    override fun setMovieInJournal(movie: Movie) {
+        repoJournal.setItemInDBJournal(movie)
+    }
+
+    override fun delMovieOnJournal(idMovie: Int) {
+        repoJournal.delItemToTheDBJournal(idMovie)
+    }
+
+    fun findItemInJournal(idMovie : Int): Boolean = repoJournal.findItem(idMovie)
+
+    fun findItemInMovieDB(idMovie : Int): Boolean = repoRoom.findItem(idMovie)
+
+
 
 
 }

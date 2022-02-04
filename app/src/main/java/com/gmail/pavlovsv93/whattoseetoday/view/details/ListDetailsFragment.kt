@@ -1,6 +1,5 @@
 package com.gmail.pavlovsv93.whattoseetoday.view.details
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentListDetailsBinding
@@ -17,7 +15,6 @@ import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 
@@ -49,7 +46,7 @@ class ListDetailsFragment : Fragment() {
                     .commit()
         }
 
-        override fun onClickFavorite(movie: Movie, flag: Boolean) {
+        override fun onClickFavorite(movie: Movie) {
             TODO("Not yet implemented")
         }
     })

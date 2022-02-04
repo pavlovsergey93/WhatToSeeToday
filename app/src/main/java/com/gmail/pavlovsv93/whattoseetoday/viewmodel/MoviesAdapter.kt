@@ -12,16 +12,17 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.model.db.AppDB
 import com.gmail.pavlovsv93.whattoseetoday.model.db.MoviesEntity
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomInterfaceRepository
+import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomRepository
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.squareup.picasso.Picasso
 
 class MoviesAdapter(private var onClickItem: WhatToSeeActivity.OnClickItem?) :
         RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    private var flagFind: Boolean = false
     private var moviesList: MutableList<Movie> = mutableListOf()
+    private val repoDB: RoomInterfaceRepository = RoomRepository(AppDB.getMoviesDAO())
 
     fun setMovie(data: MutableList<Movie>?) {
         if (data != null) {
@@ -66,26 +67,12 @@ class MoviesAdapter(private var onClickItem: WhatToSeeActivity.OnClickItem?) :
                 onClickItem?.onClick(movie = movie)
             }
             favorite.setOnClickListener {
-                flagFind = findInTheDB(movie.id)
-                onClickItem?.onClickFavorite(movie = movie, flag = flagFind)
+                onClickItem?.onClickFavorite(movie = movie)
             }
         }
     }
 
-    private fun findInTheDB(id: Int): Boolean = flagFind.apply {
-        val result: List<MoviesEntity> = AppDB.getMoviesDAO().getAllItemDB()// получить весь лист DB
-        flagFind = false
-        if (result.isEmpty()) {
-            return flagFind
-        }
-        for (i in 0..result.size-1) {
-            if (result[i].idMovie.equals(id)) {
-                flagFind = true
-                break
-            }
-        }
-        return flagFind
-    }
+    private fun findInTheDB(id: Int): Boolean = repoDB.findItem(id)
 
 
 }

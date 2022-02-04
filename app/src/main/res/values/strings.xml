@@ -16,4 +16,7 @@
     <string name="rating">8.9</string>
     <string name="btn_text_home"><![CDATA[ЕЩЕ >>>]]></string>
     <string name="new_movies">Новинки</string>
+    <string name="menu_navview_setting_title">Настройки</string>
+    <string name="menu_navview_journal_title">Журнал</string>
+    <string name="is_empty">History is empty!</string>
 </resources>

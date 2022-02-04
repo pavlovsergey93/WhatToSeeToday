@@ -13,4 +13,5 @@
     <dimen name="size_rating_stars">20dp</dimen>
     <dimen name="size_text_item_rating">15sp</dimen>
     <dimen name="radius_item_back">10dp</dimen>
+    <dimen name="margin_navview">20dp</dimen>
 </resources>

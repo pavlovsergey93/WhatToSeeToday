@@ -10,4 +10,6 @@ interface RoomInterfaceRepository {
     fun setItemInDB(movie : Movie)
     fun delItemToTheDB(idMovie : Int)
     fun getAllLocalMovies(): List<MoviesEntity>
+    fun findItem(idMovie: Int): Boolean
+
 }
