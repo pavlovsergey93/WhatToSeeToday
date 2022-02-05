@@ -43,7 +43,7 @@ class RatingFragment : Fragment() {
         }
 
         override fun onClickFavorite(movie: Movie) {
-            if (ratingViewModel.findItemInMovieDB(movie.id)) {
+            if (!ratingViewModel.findItemInMovieDB(movie.id)) {
                 ratingViewModel.setMovieInFavorite(movie)
             } else {
                 ratingViewModel.delMovieOnFavorite(idMovie = movie.id)
