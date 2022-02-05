@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
             } else {
                 homeViewModel.delMovieOnFavorite(idMovie = movie.id)
             }
-            homeViewModel.getCatalogMoviesRetrofit("now_playing")
+            showUpdateItem(movie)
         }
     })
 
@@ -130,6 +130,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+    }
+
+    fun showUpdateItem(movie: Movie){
+        adapter.notifyItemChanged(adapter.updateItem(movie))
     }
 
     override fun onDestroy() {

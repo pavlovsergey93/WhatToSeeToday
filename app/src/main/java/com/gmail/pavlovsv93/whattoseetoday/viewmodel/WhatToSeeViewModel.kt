@@ -162,10 +162,9 @@ internal class WhatToSeeViewModel(
     }
 
 
-
-    override fun findMoviesOnDB(findStr: String) {
+    override fun findMoviesOnDB(findStr: String, includeAdult: Boolean) {
         livaDataToObserver.value = AppState.OnLoading
-        repo.findMoviesonDB(findStr = findStr, callback = callBackCatalog, includeAdult = false)
+        repo.findMoviesOnDB(findStr = findStr, callback = callBackCatalog, includeAdult = includeAdult)
     }
     //----------------------------------------------------------------------------------------------
 

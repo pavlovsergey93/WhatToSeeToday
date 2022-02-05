@@ -48,7 +48,7 @@ class FavoritesFragment : Fragment() {
             } else {
                 favoritesViewModel.delMovieOnFavorite(idMovie = movie.id)
             }
-            favoritesViewModel.getMoviesFavorite()
+            showUpdateItem(movie)
         }
     })
 
@@ -96,6 +96,10 @@ class FavoritesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun showUpdateItem(movie: Movie){
+        adapter.notifyItemChanged(adapter.updateItem(movie))
     }
 
     override fun onDestroy() {

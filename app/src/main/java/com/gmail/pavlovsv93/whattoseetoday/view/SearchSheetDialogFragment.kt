@@ -13,6 +13,7 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentSearchSheetDialogBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.AppState
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.utils.pullCheckSetting
 import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
@@ -55,9 +56,6 @@ class SearchSheetDialogFragment : BottomSheetDialogFragment() {
                 searchViewModel.delMovieOnFavorite(idMovie = movie.id)
             }
             showUpdateItem(movie)
-//                arguments?.getString(ARG_FIND)?.let {
-//                    searchViewModel.findMoviesOnDB(it)
-//                }
         }
     } )
 
@@ -96,8 +94,10 @@ class SearchSheetDialogFragment : BottomSheetDialogFragment() {
 
         searchViewModel.getData().observe(viewLifecycleOwner, observer)
 
+
+
         arguments?.getString(ARG_FIND)?.let {
-            searchViewModel.findMoviesOnDB(it)
+            searchViewModel.findMoviesOnDB(it, activity?.pullCheckSetting(activity)!!)
         }
 
     }

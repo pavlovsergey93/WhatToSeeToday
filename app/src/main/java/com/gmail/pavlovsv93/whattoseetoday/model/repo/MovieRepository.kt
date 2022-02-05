@@ -140,7 +140,7 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
         }
         return moviesList
     }
-    override fun findMoviesonDB(
+    override fun findMoviesOnDB(
         findStr: String,
         lang: String,
         page: Int,

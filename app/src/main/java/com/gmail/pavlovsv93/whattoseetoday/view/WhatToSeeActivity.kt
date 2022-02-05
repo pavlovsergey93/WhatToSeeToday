@@ -140,9 +140,5 @@ class WhatToSeeActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-}
-
-private fun SearchView.setOnCloseListener(function: () -> Unit) {
 
 }
-

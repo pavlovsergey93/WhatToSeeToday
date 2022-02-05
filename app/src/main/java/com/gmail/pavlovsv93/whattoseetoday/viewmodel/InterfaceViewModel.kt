@@ -27,5 +27,5 @@ interface InterfaceViewModel {
 
     fun delMovieOnJournal(idMovie: Int)
 
-    fun findMoviesOnDB(findStr: String)
+    fun findMoviesOnDB(findStr: String, includeAdult: Boolean)
 }

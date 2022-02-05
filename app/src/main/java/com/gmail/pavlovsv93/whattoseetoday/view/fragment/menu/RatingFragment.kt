@@ -48,7 +48,7 @@ class RatingFragment : Fragment() {
             } else {
                 ratingViewModel.delMovieOnFavorite(idMovie = movie.id)
             }
-            ratingViewModel.getCatalogMoviesRetrofit("top_rated")
+            showUpdateItem(movie)
         }
     })
 
@@ -95,6 +95,10 @@ class RatingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun showUpdateItem(movie: Movie){
+        adapter.notifyItemChanged(adapter.updateItem(movie))
     }
 
     override fun onDestroy() {

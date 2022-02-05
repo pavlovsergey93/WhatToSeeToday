@@ -13,5 +13,5 @@ interface MovieInterfaceRepository {
 
     fun getCatalogMoviesRetrofit(catalog: String, lang: String = "ru-RU", page: Int = 1,callback: retrofit2.Callback<MoviesListDTO>)
     fun getMovieRetrofit(idMovie: Int, lang: String = "ru-RU", callback: retrofit2.Callback<MovieDTO>)
-    fun findMoviesonDB(findStr: String, lang: String = "ru-RU", page: Int = 1, includeAdult: Boolean, callback: retrofit2.Callback<MoviesListDTO>)
+    fun findMoviesOnDB(findStr: String, lang: String = "ru-RU", page: Int = 1, includeAdult: Boolean, callback: retrofit2.Callback<MoviesListDTO>)
 }
