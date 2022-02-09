@@ -24,23 +24,22 @@ class ContactRepository : InterfaceContactRepository{
 
     private fun getContactBook(contactResolver: ContentResolver): Cursor? {
         return contactResolver
-            .query(
-                ContactsContract.Contacts.CONTENT_URI,
-                null, null, null,
-                ContactsContract.Contacts.DISPLAY_NAME + " ASC"
-            )
+            .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
     }
+
     @SuppressLint("Range")
     private fun getContactList(cursorWithContacts: Cursor?): MutableList<Contact> {
         val mutableList: MutableList<Contact> = mutableListOf()
         cursorWithContacts?.let { cursor ->
-            for (i in 0..cursor.count) {
+            for (i in 0 .. cursor.count) {
                 if (cursor.moveToPosition(i)) {
-                    val name = cursor.getString(
-                        cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
-                    )
-                    val phone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
-                    mutableList.add(Contact(i.toLong(),name, null, null, phone))
+                    //CommonDataKinds.Phone.NUMBER
+                    val uid = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID))
+                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                    val photo = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+                    val number = cursor?.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    
+                    mutableList.add(Contact(uid = uid , name = name, photo = photo, number = number))
                 }
             }
         }

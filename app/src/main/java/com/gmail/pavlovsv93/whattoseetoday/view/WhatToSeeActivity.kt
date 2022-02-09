@@ -11,6 +11,7 @@ import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentResultListener
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
@@ -19,6 +20,7 @@ import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.ARG_CONTACT_NUMBER
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.ContactsFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.JournalFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.SettingFragment
@@ -120,10 +122,11 @@ class WhatToSeeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-//        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
-//        val searchInfo = searchManager.getSearchableInfo(componentName)
-//        val searchView = binding.mainToolbar.menu?.findItem(R.id.search_bar)?.actionView as SearchView
-//        searchView.setSearchableInfo(searchInfo)
+        supportFragmentManager.setFragmentResultListener(ARG_CONTACT_NUMBER, this, FragmentResultListener { requestKey, result ->
+
+            val number: String? = result.getString(requestKey)
+            // Отправить запрос в другое приложение
+        })
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -147,7 +150,8 @@ class WhatToSeeActivity : AppCompatActivity() {
                     BasSuggestionProvider.AUTHORITY,
                     BasSuggestionProvider.MODE
                 ).saveRecentQuery(query, null)
-                SearchSheetDialogFragment.newInstance(query.toString()).show(supportFragmentManager, TAG_SHEET)
+                SearchSheetDialogFragment.newInstance(query.toString())
+                    .show(supportFragmentManager, TAG_SHEET)
                 return false
             }
 

@@ -50,7 +50,7 @@ class ContactsAdapter(private val onClickContacts: ContactsFragment.OnClickConta
                 .placeholder(R.drawable.ic_outline_account_circle_24)
                 .into(iconContact)
             val nameContact = itemView.findViewById<TextView>(R.id.contact_title)
-                nameContact.text = (contact.name + " " + contact.surname)
+                nameContact.text = contact.name
             val numberContact = itemView.findViewById<TextView>(R.id.contact_number)
             numberContact.text = contact.number
         }

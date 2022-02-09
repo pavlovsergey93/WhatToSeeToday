@@ -25,6 +25,8 @@ import com.gmail.pavlovsv93.whattoseetoday.viewmodel.ContactViewModel
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.ContactsAdapter
 
 const val REQUEST_CODE = 200
+const val ARG_CONTACT_NUMBER = "ARG_CONTACT_NUMBER"
+const val KEY_CONTACT_NUMBER = "KEY_CONTACT_NUMBER"
 
 class ContactsFragment : Fragment() {
 
@@ -34,7 +36,9 @@ class ContactsFragment : Fragment() {
 
     private val adapter: ContactsAdapter = ContactsAdapter(object : OnClickContacts {
         override fun onClickContact(contact: Contact) {
-            //обработка нажатия на контакт
+            val data = Bundle()
+            data.putString(ARG_CONTACT_NUMBER, contact.number)
+            parentFragmentManager.setFragmentResult(KEY_CONTACT_NUMBER, data)
             Toast.makeText(context, contact.name, Toast.LENGTH_SHORT).show()
         }
     })
@@ -127,7 +131,7 @@ class ContactsFragment : Fragment() {
     }
 
     private fun getContact() {
-        val let = context?.let {
+        context?.let {
             val contactResolver: ContentResolver = it.contentResolver
             viewModel.getContact(contactResolver)
         }
