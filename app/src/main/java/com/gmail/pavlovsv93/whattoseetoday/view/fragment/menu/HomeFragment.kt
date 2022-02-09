@@ -27,12 +27,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private var page = 1
-    private var isLoading: Boolean = false
-    private var totalItemCount = 0
-    private var lastVisebleItem = 0
-
-
     private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
         override fun onClick(movie: Movie) {
             if (homeViewModel.findItemInJournal(idMovie = movie.id)) {
@@ -72,7 +66,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
         //return inflater.inflate(R.layout.fragment_home, container, false)

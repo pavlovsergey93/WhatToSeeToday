@@ -2,15 +2,12 @@ package com.gmail.pavlovsv93.whattoseetoday.view
 
 import android.app.SearchManager
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.nfc.Tag
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
@@ -18,10 +15,11 @@ import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarNoAction
+import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.ContactsFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.JournalFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.SettingFragment
 
@@ -43,17 +41,21 @@ class WhatToSeeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val view = binding.root
+        setContentView(view)
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
                 .commit()
         }
 
-        binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        val toolbar = binding.mainToolbar
+        setSupportActionBar(toolbar)
+
+        handleIntent(intent)
 
         binding.mainBottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -78,10 +80,6 @@ class WhatToSeeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        val toolbar = binding.mainToolbar
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
 
         val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -111,22 +109,44 @@ class WhatToSeeActivity : AppCompatActivity() {
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.menu_navview_contacts -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_whattosee_container, ContactsFragment.newInstance())
+                        .addToBackStack("Контакты")
+                        .commit()
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 else -> false
             }
-
         }
-
+//        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+//        val searchInfo = searchManager.getSearchableInfo(componentName)
+//        val searchView = binding.mainToolbar.menu?.findItem(R.id.search_bar)?.actionView as SearchView
+//        searchView.setSearchableInfo(searchInfo)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         menuInflater.inflate(R.menu.menu_toolbar, menu)
 
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        val searchInfo = searchManager.getSearchableInfo(componentName)
         val searchView = menu?.findItem(R.id.search_bar)?.actionView as SearchView
-        searchView.queryHint = "Search"
+        searchView.setSearchableInfo(searchInfo)
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                SearchRecentSuggestions(
+                    this@WhatToSeeActivity,
+                    BasSuggestionProvider.AUTHORITY,
+                    BasSuggestionProvider.MODE
+                ).saveRecentQuery(query, null)
                 SearchSheetDialogFragment.newInstance(query.toString()).show(supportFragmentManager, TAG_SHEET)
                 return false
             }
@@ -139,6 +159,12 @@ class WhatToSeeActivity : AppCompatActivity() {
         })
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (Intent.ACTION_SEARCH == intent?.action) {
+            intent.getStringExtra(SearchManager.QUERY)
+        }
     }
 
 }
