@@ -37,7 +37,7 @@ class ContactsFragment : Fragment() {
     private val adapter: ContactsAdapter = ContactsAdapter(object : OnClickContacts {
         override fun onClickContact(contact: Contact) {
             val data = Bundle()
-            data.putString(ARG_CONTACT_NUMBER, contact.number)
+            data.putParcelable(ARG_CONTACT_NUMBER, contact)
             parentFragmentManager.setFragmentResult(KEY_CONTACT_NUMBER, data)
             Toast.makeText(context, contact.name, Toast.LENGTH_SHORT).show()
         }

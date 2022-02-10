@@ -1,8 +1,10 @@
 package com.gmail.pavlovsv93.whattoseetoday.view
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SearchRecentSuggestions
@@ -17,13 +19,11 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
+import com.gmail.pavlovsv93.whattoseetoday.model.Contact
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.ARG_CONTACT_NUMBER
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.ContactsFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.JournalFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.SettingFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.*
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
 const val BASE_URL = "https://api.themoviedb.org/3/movie/"
@@ -41,6 +41,7 @@ class WhatToSeeActivity : AppCompatActivity() {
         fun onClickFavorite(movie: Movie)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -122,11 +123,22 @@ class WhatToSeeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        supportFragmentManager.setFragmentResultListener(ARG_CONTACT_NUMBER, this, FragmentResultListener { requestKey, result ->
+        supportFragmentManager.setFragmentResultListener(
+            KEY_CONTACT_NUMBER,
+            this,
+            FragmentResultListener { requestKey, result ->
+                val contact = result.getParcelable<Contact>(ARG_CONTACT_NUMBER)
+                val number = contact?.number
+                if (number != null) {
+                    val intentR = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intentR);
+                    }
+                }
+                // или так
+                //intent.setData(Uri.parse("tel:$number"));
 
-            val number: String? = result.getString(requestKey)
-            // Отправить запрос в другое приложение
-        })
+            })
     }
 
     override fun onNewIntent(intent: Intent) {
