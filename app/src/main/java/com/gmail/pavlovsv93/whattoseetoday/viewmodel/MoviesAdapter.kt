@@ -26,7 +26,7 @@ class MoviesAdapter(private var onClickItem: WhatToSeeActivity.OnClickItem) :
 
     fun setMovie(data: MutableList<Movie>?) {
         if (data != null) {
-            moviesList = data
+            moviesList.addAll(data)
         }
         notifyDataSetChanged()
     }

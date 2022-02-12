@@ -6,6 +6,7 @@
     android:padding="@dimen/padding_fragment_recycler">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:foregroundGravity="center"
         android:id="@+id/fragment_rating_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
