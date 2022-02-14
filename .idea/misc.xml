@@ -20,15 +20,17 @@
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_search.xml" value="0.13072916666666667" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_search_sheet_dialog.xml" value="0.12447916666666667" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_stars.xml" value="0.17391304347826086" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_what_to_see.xml" value="0.14945652173913043" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_contact.xml" value="0.25416666666666665" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_feed.xml" value="0.12760416666666666" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_journal.xml" value="0.176" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_movie.xml" value="0.5720823798627003" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_star.xml" value="0.2" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/vkdspapvajd.xml" value="0.20969202898550723" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/menu_btn_navig_view.xml" value="0.25052083333333336" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/menu_toolbar.xml" value="0.25416666666666665" />
-        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/nav_menu.xml" value="0.264" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/nav_menu.xml" value="0.1" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/xml/searchable.xml" value="0.25416666666666665" />
       </map>
     </option>

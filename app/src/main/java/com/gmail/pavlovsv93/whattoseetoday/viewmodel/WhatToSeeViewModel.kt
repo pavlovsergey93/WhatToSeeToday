@@ -12,9 +12,9 @@ import com.gmail.pavlovsv93.whattoseetoday.model.repo.*
 import retrofit2.Call
 import retrofit2.Response
 
-private const val SERVER_ERROR = "Ошибка сервера"
-private const val PROJECT_ERROR = "Ошибка приложения"
-private const val CORRUPTED_DATA = "Потеря данных"
+const val SERVER_ERROR = "Ошибка сервера"
+const val PROJECT_ERROR = "Ошибка приложения"
+const val CORRUPTED_DATA = "Потеря данных"
 
 internal class WhatToSeeViewModel(
     private val livaDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
@@ -164,7 +164,11 @@ internal class WhatToSeeViewModel(
 
     override fun findMoviesOnDB(findStr: String, includeAdult: Boolean) {
         livaDataToObserver.value = AppState.OnLoading
-        repo.findMoviesOnDB(findStr = findStr, callback = callBackCatalog, includeAdult = includeAdult)
+        repo.findMoviesOnDB(
+            findStr = findStr,
+            callback = callBackCatalog,
+            includeAdult = includeAdult
+        )
     }
     //----------------------------------------------------------------------------------------------
 
@@ -219,6 +223,25 @@ internal class WhatToSeeViewModel(
 
     fun findItemInMovieDB(idMovie: Int): Boolean = repoRoom.findItem(idMovie)
 
+
+
+//    private val callBackCatalog = object : retrofit2.Callback<MoviesListDTO> {
+//        override fun onResponse(call: Call<MoviesListDTO>, response: Response<MoviesListDTO>) {
+//            val serverResponse: MoviesListDTO? = response.body()
+//            livaDataToObserver.postValue(
+//                if (response.isSuccessful && serverResponse != null) {
+//                    checkCatalogResponse(serverResponse)
+//                } else {
+//                    AppState.OnError(Throwable(SERVER_ERROR))
+//                }
+//            )
+//        }
+//
+//        override fun onFailure(call: Call<MoviesListDTO>, t: Throwable) {
+//            AppState.OnError(Throwable(PROJECT_ERROR))
+//        }
+//
+//    }
 }
 
 

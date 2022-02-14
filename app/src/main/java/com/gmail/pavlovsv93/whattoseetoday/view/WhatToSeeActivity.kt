@@ -30,6 +30,7 @@ const val BASE_URL = "https://api.themoviedb.org/3/movie/"
 const val BASE_URL_RETROFIT = "https://api.themoviedb.org/"
 const val BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500"
 const val BASE_URL_IMAGE_ORIGIN = "https://image.tmdb.org/t/p/original"
+const val BASE_URL_IMAGE_STARS = "https://image.tmdb.org/t/p/original"
 const val TAG_SHEET = "SearchSheetDialogFragment"
 
 class WhatToSeeActivity : AppCompatActivity() {
@@ -115,6 +116,14 @@ class WhatToSeeActivity : AppCompatActivity() {
                 R.id.menu_navview_contacts -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_whattosee_container, ContactsFragment.newInstance())
+                        .addToBackStack("Контакты")
+                        .commit()
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.menu_navview_stars-> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_whattosee_container, StarsFragment.newInstance())
                         .addToBackStack("Контакты")
                         .commit()
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)

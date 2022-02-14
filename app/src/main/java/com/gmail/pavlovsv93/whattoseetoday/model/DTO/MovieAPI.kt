@@ -1,8 +1,11 @@
 package com.gmail.pavlovsv93.whattoseetoday.model.repo
 
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.DetailsStarDTO
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.PopularPersonalDTO
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -31,4 +34,18 @@ interface MovieDatabaseAPI {
         @Query("page") page: Int,
         @Query("include_adult") includeAdult: Boolean
     ): Call<MoviesListDTO>
+
+    @GET("3/person/popular?")
+    fun getPopularStars(
+        @Query("api_key") apiKey: String,
+        @Query("language") lang: String,
+        @Query("page") page: Int,
+    ): Call<PopularPersonalDTO>
+
+    @GET("3/person/{person_id}?")
+    fun getDetailsStar(
+        @Path("person_id") uid: Int,
+        @Query("api_key") apiKey: String,
+        @Query("language") lang: String
+    ) : Callback<DetailsStarDTO>
 }

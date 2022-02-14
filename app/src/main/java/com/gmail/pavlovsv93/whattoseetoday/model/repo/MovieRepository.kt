@@ -150,4 +150,20 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
         remoteDataSource.findMovies(query = findStr, lang = lang, page = page, includeAdult = includeAdult,callback = callback)
     }
 
+    override fun getPopulStar(
+        lang: String,
+        page: Int,
+        callback: retrofit2.Callback<PopularPersonalDTO>
+    ) {
+        remoteDataSource.getPopularStar(lang = lang, page = page, callback)
+    }
+
+    override fun getDetailsStar(
+        uid: Int,
+        lang: String,
+        callBackStar: retrofit2.Callback<DetailsStarDTO>
+    ) {
+        remoteDataSource.getDetailsStar(uid, land = lang, callBackStar = callBackStar )
+    }
+
 }

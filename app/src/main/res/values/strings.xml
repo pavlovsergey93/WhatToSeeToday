@@ -27,4 +27,5 @@
     <string name="app_label">WhatToSeeToday</string>
     <string name="menu_navview_journal_contacts">Контактная книжка</string>
     <string name="is_empty_contact">Contact not find!</string>
+    <string name="menu_navview_stars">Популярные актеры</string>
 </resources>
