@@ -79,9 +79,9 @@ class StarDetailsFragment : Fragment() {
                         .placeholder(R.drawable.ic_twotone_stars_150)
                         .into(starDetailsImage)
                     starDetailsName.text = star.name
-                    starDetailsRating.text = (R.string.rating_text.toString() + star.popularity.toString())
+                    starDetailsRating.text = (getString(R.string.rating_text) + star.popularity.toString())
                     starDetailsLive.text = star.biography
-                    starDetailsAddress.text = (star.place_of_birth + "\n" + R.string.show_address_to_map)
+                    starDetailsAddress.text = (star.place_of_birth + "\n" + getString(R.string.show_address_to_map))
                     starDetailsAddress.setOnClickListener {
                         Toast.makeText(context, star.place_of_birth, Toast.LENGTH_SHORT).show()
                     }

@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/geo"
+        android:icon="@drawable/ic_map"
+        android:title="@string/i_map"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/search_bar"
         android:icon="@drawable/ic_baseline_search_24"
         android:searchSuggestAuthority="com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider"
@@ -9,4 +14,5 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
+
 </menu>
