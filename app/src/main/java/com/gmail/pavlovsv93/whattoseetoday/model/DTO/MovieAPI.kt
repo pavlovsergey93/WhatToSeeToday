@@ -47,5 +47,5 @@ interface MovieDatabaseAPI {
         @Path("person_id") uid: Int,
         @Query("api_key") apiKey: String,
         @Query("language") lang: String
-    ) : Callback<DetailsStarDTO>
+    ) : Call<DetailsStarDTO>
 }

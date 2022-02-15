@@ -32,7 +32,7 @@ const val BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500"
 const val BASE_URL_IMAGE_ORIGIN = "https://image.tmdb.org/t/p/original"
 const val BASE_URL_IMAGE_STARS = "https://image.tmdb.org/t/p/original"
 const val TAG_SHEET = "SearchSheetDialogFragment"
-
+//https://api.themoviedb.org/3/person/1972974?api_key=36dd08c6be7ff228989408ce95358e5c&language=ru-RU
 class WhatToSeeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWhatToSeeBinding

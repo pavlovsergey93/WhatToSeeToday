@@ -1,5 +1,6 @@
 package com.gmail.pavlovsv93.whattoseetoday.model
 
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.DetailsStarDTO
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.KnownFor
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.ResultDTO
 
@@ -19,4 +20,10 @@ sealed class AppStateStars {
     data class OnSuccess(val starsData: MutableList<ResultDTO>) : AppStateStars()
     data class OnError(val exception: Throwable) : AppStateStars()
     object OnLoading : AppStateStars()
+}
+
+sealed class AppStateDetailsStar {
+    data class OnSuccess(val starData: DetailsStarDTO) : AppStateDetailsStar()
+    data class OnError(val exception: Throwable) : AppStateDetailsStar()
+    object OnLoading : AppStateDetailsStar()
 }

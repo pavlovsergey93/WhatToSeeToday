@@ -163,7 +163,7 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
         lang: String,
         callBackStar: retrofit2.Callback<DetailsStarDTO>
     ) {
-        remoteDataSource.getDetailsStar(uid, land = lang, callBackStar = callBackStar )
+        remoteDataSource.getDetailsStar(uid = uid, land = lang, callBackStar = callBackStar )
     }
 
 }

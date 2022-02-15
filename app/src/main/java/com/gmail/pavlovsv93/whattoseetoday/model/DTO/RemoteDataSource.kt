@@ -68,8 +68,15 @@ class RemoteDataSource {
         ).enqueue(callback)
     }
 
-    fun getDetailsStar(uid: Int, land: String, callBackStar: Callback<DetailsStarDTO>) {
-        movieAPI.getDetailsStar(uid = uid, apiKey = BuildConfig.TMDB_API_KEY, lang = land)
-            .equals(callBackStar)
+    fun getDetailsStar(
+        uid: Int,
+        land: String,
+        callBackStar: Callback<DetailsStarDTO>
+    ) {
+        movieAPI.getDetailsStar(
+            uid = uid,
+            apiKey = BuildConfig.TMDB_API_KEY,
+            lang = land)
+            .enqueue(callBackStar)
     }
 }

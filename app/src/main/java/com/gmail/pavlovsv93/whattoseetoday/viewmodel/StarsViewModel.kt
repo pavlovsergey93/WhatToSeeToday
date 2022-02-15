@@ -3,6 +3,7 @@ package com.gmail.pavlovsv93.whattoseetoday.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gmail.pavlovsv93.whattoseetoday.model.AppStateDetailsStar
 import com.gmail.pavlovsv93.whattoseetoday.model.AppStateStars
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.*
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieInterfaceRepository
@@ -55,18 +56,5 @@ class StarsViewModel(
         return resultList
     }
 
-    fun getDetailsStar(uid: Int): DetailsStarDTO {
-        repo.getDetailsStar(uid, callBackStar = callBackStar)
-    }
 
-    private val callBackStar = object : Callback<DetailsStarDTO> {
-        override fun onResponse(call: Call<DetailsStarDTO>, response: Response<DetailsStarDTO>) {
-            TODO("Not yet implemented")
-        }
-
-        override fun onFailure(call: Call<DetailsStarDTO>, t: Throwable) {
-            TODO("Not yet implemented")
-        }
-
-    }
 }

@@ -18,5 +18,5 @@ interface MovieInterfaceRepository {
     fun findMoviesOnDB(findStr: String, lang: String = "ru-RU", page: Int = 1, includeAdult: Boolean, callback: retrofit2.Callback<MoviesListDTO>)
 
     fun getPopulStar(lang: String = "ru-RU",page: Int = 1, callback: retrofit2.Callback<PopularPersonalDTO>)
-    fun getDetailsStar(uid: Int,lang: String = "ru-RU", callBackStar: retrofit2.Callback<DetailsStarDTO>)
+    fun getDetailsStar(uid: Int, lang: String = "ru-RU", callBackStar: retrofit2.Callback<DetailsStarDTO>)
 }
