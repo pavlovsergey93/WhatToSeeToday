@@ -15,6 +15,7 @@ import com.gmail.pavlovsv93.whattoseetoday.model.AppStateDetailsStar
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.DetailsStarDTO
 import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE_STARS
+import com.gmail.pavlovsv93.whattoseetoday.view.map.MapsFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.DetailsStarViewModel
 import com.squareup.picasso.Picasso
 
@@ -83,6 +84,10 @@ class StarDetailsFragment : Fragment() {
                     starDetailsLive.text = star.biography
                     starDetailsAddress.text = (star.place_of_birth + "\n" + getString(R.string.show_address_to_map))
                     starDetailsAddress.setOnClickListener {
+                        parentFragmentManager.beginTransaction()
+                            .addToBackStack(star.name)
+                            .replace(R.id.main_whattosee_container, MapsFragment())
+                            .commit()
                         Toast.makeText(context, star.place_of_birth, Toast.LENGTH_SHORT).show()
                     }
 
