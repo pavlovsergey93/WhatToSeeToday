@@ -21,6 +21,16 @@ import java.io.IOException
 
 class MapsFragment : Fragment() {
 
+    companion object {
+        private const val ARG_ADDRESS = "ARG_ADDRESS"
+        fun newInstance(address: String) = MapsFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_ADDRESS, address)
+            }
+
+        }
+    }
+
     private var _binding: MapLayoutBinding? = null
     private val binding get() = _binding!!
 
@@ -40,13 +50,6 @@ class MapsFragment : Fragment() {
         }
     }
 
-//    private val callback = OnMapReadyCallback { googleMap ->
-//
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,18 +61,18 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val address = arguments?.getString(ARG_ADDRESS)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-        initSearchByAddress()
+        initSearchByAddress(address)
     }
+
     private fun getAddressAsync(location: LatLng) {
         context?.let {
             val geoCoder = Geocoder(it)
             Thread {
                 try {
-                    val addresses =
-                        geoCoder.getFromLocation(location.latitude, location.longitude, 1)
-                    binding.textAddress.post { binding.textAddress.text = addresses[0].getAddressLine(0) }
+                    geoCoder.getFromLocation(location.latitude, location.longitude, 1)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -78,10 +81,10 @@ class MapsFragment : Fragment() {
     }
 
     private fun addMarkerToArray(location: LatLng) {
-        val marker = setMarker(location,
+        val marker = setMarker(
+            location,
             markers.size.toString()
-//            R.drawable.ic_map
-            )
+        )
         if (marker != null) {
             markers.add(marker)
         }
@@ -90,15 +93,14 @@ class MapsFragment : Fragment() {
     private fun setMarker(
         location: LatLng,
         searchText: String,
-//        resourceId: Int
     ): Marker? {
         return map.addMarker(
             MarkerOptions()
                 .position(location)
                 .title(searchText)
-//                .icon(BitmapDescriptorFactory.fromResource(resourceId))
         )
     }
+
     private fun drawLine() {
         val last: Int = markers.size - 1
         if (last >= 1) {
@@ -112,21 +114,19 @@ class MapsFragment : Fragment() {
             )
         }
     }
-    private fun initSearchByAddress() {
-        binding.buttonSearch.setOnClickListener {
-            val geoCoder = Geocoder(it.context)
-            val searchText = binding.searchAddress.text.toString()
-            Thread {
-                try {
-                    val addresses = geoCoder.getFromLocationName(searchText, 1)
-                    if (addresses.size > 0) {
-                        goToAddress(addresses, it, searchText)
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
+
+    private fun initSearchByAddress(address: String?) {
+        val geoCoder = Geocoder(context)
+        Thread {
+            try {
+                val addresses = geoCoder.getFromLocationName(address, 1)
+                if (addresses.size > 0 && address != null) {
+                    goToAddress(addresses, binding.llMap, address)
                 }
-            }.start()
-        }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }.start()
     }
 
     private fun goToAddress(
@@ -139,8 +139,8 @@ class MapsFragment : Fragment() {
             addresses[0].longitude
         )
         view.post {
-            setMarker(location, searchText,
-//                R.drawable.ic_round_push_pin_24
+            setMarker(
+                location, searchText,
             )
             map.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(

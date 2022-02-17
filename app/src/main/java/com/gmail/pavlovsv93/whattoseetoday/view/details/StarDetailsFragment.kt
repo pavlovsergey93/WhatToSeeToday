@@ -86,7 +86,7 @@ class StarDetailsFragment : Fragment() {
                     starDetailsAddress.setOnClickListener {
                         parentFragmentManager.beginTransaction()
                             .addToBackStack(star.name)
-                            .replace(R.id.main_whattosee_container, MapsFragment())
+                            .replace(R.id.main_whattosee_container, MapsFragment.newInstance(star.place_of_birth))
                             .commit()
                         Toast.makeText(context, star.place_of_birth, Toast.LENGTH_SHORT).show()
                     }
