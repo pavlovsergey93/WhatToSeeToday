@@ -10,8 +10,8 @@ import androidx.annotation.RequiresApi
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.*
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
+import com.gmail.pavlovsv93.whattoseetoday.utils.API_KEY
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject

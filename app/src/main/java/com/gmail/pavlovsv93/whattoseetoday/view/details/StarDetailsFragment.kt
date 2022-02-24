@@ -13,8 +13,8 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentStarDetailsBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.AppStateDetailsStar
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.DetailsStarDTO
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL_IMAGE_STARS
 import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE_STARS
 import com.gmail.pavlovsv93.whattoseetoday.view.map.MapsFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.DetailsStarViewModel
 import com.squareup.picasso.Picasso

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentSettingBinding
 import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
 import com.gmail.pavlovsv93.whattoseetoday.R
-import com.gmail.pavlovsv93.whattoseetoday.utils.Const
+import com.gmail.pavlovsv93.whattoseetoday.utils.KEY_ADULT
 import com.gmail.pavlovsv93.whattoseetoday.utils.pullCheckSetting
 
 class SettingFragment : Fragment() {
@@ -60,7 +60,7 @@ class SettingFragment : Fragment() {
     private fun isCheckedSwitch(isCheckSwitch: Boolean) {
         val prefs = activity?.getPreferences(Context.MODE_PRIVATE)
         val editor = prefs?.edit()
-        editor?.putBoolean(Const.KEY_ADULT, isCheckSwitch)
+        editor?.putBoolean(KEY_ADULT, isCheckSwitch)
         editor?.apply()
     }
 }

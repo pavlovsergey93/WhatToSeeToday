@@ -2,7 +2,7 @@ package com.gmail.pavlovsv93.whattoseetoday.model.DTO
 
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.MovieDatabaseAPI
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_RETROFIT
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL_RETROFIT
 import com.google.gson.GsonBuilder
 import retrofit2.Callback
 import retrofit2.Retrofit

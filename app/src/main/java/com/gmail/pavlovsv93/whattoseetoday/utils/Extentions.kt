@@ -30,7 +30,7 @@ fun View.showSnackBarNoAction(
 }
 
 fun Activity.pullCheckSetting(activity: Activity?): Boolean? =
-    activity?.getPreferences(Context.MODE_PRIVATE)?.getBoolean(Const.KEY_ADULT, false)
+    activity?.getPreferences(Context.MODE_PRIVATE)?.getBoolean(KEY_ADULT, false)
 
 fun Activity.getPermission(activity: Activity?): Int? {
     activity?.let {
