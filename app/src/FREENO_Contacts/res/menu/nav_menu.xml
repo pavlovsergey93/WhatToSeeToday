@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_navview_setting"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/menu_navview_setting_title"
+        app:showAsAction="always" />
+    <item
+        android:visible="false"
+        android:id="@+id/menu_navview_journal"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/menu_navview_journal_title"
+        app:showAsAction="always" />
+    <item
+        android:visible="false"
+        android:id="@+id/menu_navview_contacts"
+        android:icon="@drawable/ic_baseline_contact_phone_24"
+        android:title="@string/menu_navview_journal_contacts"
+        app:showAsAction="always" />
+    <item
+        android:visible="false"
+        android:id="@+id/menu_navview_stars"
+        android:icon="@drawable/ic_twotone_stars_24"
+        android:title="@string/menu_navview_stars"
+        app:showAsAction="always" />
+</menu>

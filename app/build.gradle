@@ -33,12 +33,19 @@ android {
             keyAlias(nameAlias)
             keyPassword = passwordKey
         }
+        beta {
+            storeFile file(nameKey)
+            storePassword = passwordKey
+            keyAlias(nameAlias)
+            keyPassword = passwordKey
+        }
     }
 
     buildTypes {
 
         release {
-            minifyEnabled true
+            signingConfig signingConfigs.release
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             versionNameSuffix '-release'
         }

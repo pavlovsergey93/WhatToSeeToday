@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GB/WhatToSeeToday/app/src/FREENO_Contacts/res/layout/activity_what_to_see.xml" value="0.14270833333333333" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/FREENO_Contacts/res/layout/fragment_setting.xml" value="0.14492753623188406" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/FREENO_Contacts/res/menu/nav_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.140625" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/ic_baseline_image_not_supported_24.xml" value="0.18425925925925926" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/ic_map.xml" value="0.155" />

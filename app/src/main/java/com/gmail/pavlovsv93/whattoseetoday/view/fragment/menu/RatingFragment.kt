@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentRatingBinding

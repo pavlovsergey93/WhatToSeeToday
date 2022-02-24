@@ -18,12 +18,9 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentResultListener
@@ -41,8 +38,6 @@ import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.installations.FirebaseInstallations
 import java.io.IOException
 
@@ -273,6 +268,7 @@ class WhatToSeeActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingPermission")
     private fun getGeoLocation() {
         this?.let { context ->
             if (ContextCompat.checkSelfPermission(
