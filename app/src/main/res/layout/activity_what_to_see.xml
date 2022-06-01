@@ -34,15 +34,15 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-                    <ImageView
-                        android:id="@+id/main.backdrop"
-                        android:layout_width="@dimen/main_image_toolbar"
-                        android:layout_height="@dimen/main_image_toolbar"
-                        android:fitsSystemWindows="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_outline_account_circle_24"
-                        app:layout_collapseMode="parallax"
-                        android:layout_gravity="center"/>
+                <ImageView
+                    android:id="@+id/main.backdrop"
+                    android:layout_width="@dimen/main_image_toolbar"
+                    android:layout_height="@dimen/main_image_toolbar"
+                    android:layout_gravity="center"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_outline_account_circle_24"
+                    app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/main.toolbar"
@@ -54,18 +54,12 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/main_scrpll_view"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/main_whattosee_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/main_whattosee_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".view.WhatToSeeActivity" />
-        </androidx.core.widget.NestedScrollView>
+            tools:context=".view.WhatToSeeActivity"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

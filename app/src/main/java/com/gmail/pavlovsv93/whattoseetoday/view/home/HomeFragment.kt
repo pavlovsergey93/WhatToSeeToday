@@ -9,8 +9,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.gmail.pavlovsv93.whattoseetoday.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentHomeBinding
+import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -21,6 +26,18 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val adapter = MoviesAdapter(object : OnClickItem{
+        override fun onClick(movie : Movie){
+            val manager = requireActivity().supportFragmentManager
+            if(manager != null){
+                manager.beginTransaction()
+                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie))
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        }
+
+    })
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -38,6 +55,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val recyclerView : RecyclerView = binding.fragmentHomeContainer
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.fragmentHomeContainer.adapter = adapter
 
         homeViewModel = ViewModelProvider(this).get(WhatToSeeHomeViewModel::class.java)
 
@@ -61,24 +83,30 @@ class HomeFragment : Fragment() {
         when (state) {
             AppState.OnLoading -> binding.fragmentProgbarHome.isVisible = true
             is AppState.OnError -> {
+                binding.fragmentHomeTextview.isVisible = true
+                binding.fragmentHomeTextview.text = R.string.error.toString()
                 Snackbar.make(binding.root, state.toString(), Snackbar.LENGTH_INDEFINITE)
                     .setAction("Перезагрузить") { homeViewModel.getDataFromDB() }
                     .show()
                 Toast.makeText(requireContext(), state.exception.toString(), Toast.LENGTH_LONG)
             }
             is AppState.OnSuccess -> {
-                binding.fragmentHomeTextview.setText(R.string.message)
+                adapter.setMovie(state.moviesData)
                 binding.fragmentProgbarHome.isVisible = false
-                val moviesData = state.moviesData
+                if (state.moviesData?.size != 0) {
+                    binding.fragmentHomeTextview.isVisible = false
+                }
             }
         }
 
-//        binding.fragmentHomeTextview.setText(R.string.message)
-//        Toast.makeText(requireContext(), "get data", Toast.LENGTH_SHORT).show();
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    interface OnClickItem{
+        fun onClick(movie: Movie)
     }
 }
