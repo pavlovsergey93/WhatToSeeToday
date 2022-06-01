@@ -55,4 +55,28 @@ class RemoteDataSource {
             includeAdult = includeAdult
         ).enqueue(callback)
     }
+
+    fun getPopularStar(
+        lang: String,
+        page: Int,
+        callback: Callback<PopularPersonalDTO>,
+    ) {
+        movieAPI.getPopularStars(
+            apiKey = BuildConfig.TMDB_API_KEY,
+            lang = lang,
+            page = page
+        ).enqueue(callback)
+    }
+
+    fun getDetailsStar(
+        uid: Int,
+        land: String,
+        callBackStar: Callback<DetailsStarDTO>
+    ) {
+        movieAPI.getDetailsStar(
+            uid = uid,
+            apiKey = BuildConfig.TMDB_API_KEY,
+            lang = land)
+            .enqueue(callBackStar)
+    }
 }

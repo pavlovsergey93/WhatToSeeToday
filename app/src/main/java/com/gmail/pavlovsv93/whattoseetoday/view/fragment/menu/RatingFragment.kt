@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentRatingBinding
@@ -27,16 +29,21 @@ class RatingFragment : Fragment() {
 
     private lateinit var ratingViewModel: WhatToSeeViewModel
 
+    private var page = 1;
+
     private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
-        override fun onClick(movie: Movie){
-            if(ratingViewModel.findItemInJournal(idMovie = movie.id)){
+        override fun onClick(movie: Movie) {
+            if (ratingViewModel.findItemInJournal(idMovie = movie.id)) {
                 ratingViewModel.delMovieOnJournal(idMovie = movie.id)
             }
             ratingViewModel.setMovieInJournal(movie = movie)
             val manager = requireActivity().supportFragmentManager
-            if(manager != null){
+            if (manager != null) {
                 manager.beginTransaction()
-                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie.id))
+                    .replace(
+                        R.id.main_whattosee_container,
+                        MovieDetailFragment.newInstance(movie.id)
+                    )
                     .addToBackStack("RatingFragment")
                     .commit()
             }
@@ -72,6 +79,18 @@ class RatingFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.adapter = adapter
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == 0) {
+                    var position = recyclerView.layoutManager?.itemCount as Int
+                    if (recyclerView.layoutManager?.findViewByPosition(--position)?.isVisible == true) {
+                        ratingViewModel.getCatalogMoviesRetrofit("top_rated", page = ++page)
+                    }
+                }
+            }
+        })
+
         ratingViewModel = ViewModelProvider(this).get(WhatToSeeViewModel::class.java)
         ratingViewModel.getData().observe(viewLifecycleOwner, Observer { state ->
             renderData(state)
@@ -79,13 +98,16 @@ class RatingFragment : Fragment() {
         ratingViewModel.getCatalogMoviesRetrofit("top_rated")
     }
 
-    private fun renderData(state : AppState) {
+    private fun renderData(state: AppState) {
         when (state) {
             AppState.OnLoading -> binding.fragmentProgbarRating.isVisible = true
             is AppState.OnError -> {
                 binding.fragmentRatingTextview.isVisible = true
                 binding.fragmentRatingTextview.text = R.string.error.toString()
-                view?.showSnackBarAction(state.toString(),getString(R.string.reload), {ratingViewModel.getRatingMovies()})
+                view?.showSnackBarAction(
+                    state.toString(),
+                    getString(R.string.reload),
+                    { ratingViewModel.getRatingMovies() })
             }
             is AppState.OnSuccess -> {
                 adapter.setMovie(state.moviesData)
@@ -97,7 +119,7 @@ class RatingFragment : Fragment() {
         }
     }
 
-    fun showUpdateItem(movie: Movie){
+    fun showUpdateItem(movie: Movie) {
         adapter.notifyItemChanged(adapter.updateItem(movie))
     }
 

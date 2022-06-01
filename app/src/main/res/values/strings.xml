@@ -14,6 +14,7 @@
     <string name="num_stars">1</string>
     <string name="step_stars">0.1</string>
     <string name="rating">8.9</string>
+    <string name="rating_text">Популярность: </string>
     <string name="btn_text_home"><![CDATA[ЕЩЕ >>>]]></string>
     <string name="new_movies">Новинки</string>
     <string name="menu_navview_setting_title">Настройки</string>
@@ -27,4 +28,23 @@
     <string name="app_label">WhatToSeeToday</string>
     <string name="menu_navview_journal_contacts">Контактная книжка</string>
     <string name="is_empty_contact">Contact not find!</string>
+    <string name="menu_navview_stars">Популярные актеры</string>
+    <string name="show_address_to_map">Подробнее на карте>>></string>
+    <string name="i_map">Местоположение</string>
+    <string name="dialog_rationale_title">Местоположение</string>
+    <string name="dialog_rationale_meaasge">Для отображения вашего местоположения необходимо получить доступ к ресурсам GPS</string>
+    <string name="dialog_rationale_give_access">Предоставить</string>
+    <string name="dialog_rationale_decline">Закрыть</string>
+    <string name="dialog_title_no_gps">Доступ к геолокации закрыт</string>
+    <string name="dialog_button_close">Закрыть</string>
+    <string name="dialog_message_no_gps">Разрешите доступ к геолокации, если хотите узнать погоду текущего места</string>
+    <string name="dialog_title_gps_turned_off">GPS отключён</string>
+    <string name="dialog_message_last_location_unknown">Местонахождение неизвестно. Включите GPS, если хотите получить погоду по текущему адресу</string>
+    <string name="dialog_message_last_known_location">Показана последняя известная локация. Включите GPS, если хотите обновить местонахождение</string>
+    <string name="dialog_address_title">Ваш адрес</string>
+    <string name="dialog_address_get_weather">Узнать погоду</string>
+    <string name="button_search_map">Search</string>
+    <string name="default_address">Red Square, 1, Moscow</string>
+    <string name="marker_start">Start</string>
+
 </resources>
