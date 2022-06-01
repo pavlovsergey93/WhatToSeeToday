@@ -33,7 +33,7 @@ class FavoritesFragment : Fragment() {
             val manager = requireActivity().supportFragmentManager
             if(manager != null){
                 manager.beginTransaction()
-                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie))
+                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie.id))
                     .addToBackStack("HomeFragment")
                     .commit()
             }

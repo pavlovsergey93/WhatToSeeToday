@@ -1,16 +1,34 @@
 package com.gmail.pavlovsv93.whattoseetoday.view.details
 
-import android.net.Uri
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.gmail.pavlovsv93.whattoseetoday.R
-import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding.bind
-import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding.inflate
+import com.gmail.pavlovsv93.whattoseetoday.MoviesDetailsService
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentMovieDetailBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+
+const val DETAIL_INTENT_FILTER = "DETAIL_INTENT_FILTER"
+const val DETAIL_INTENT_ID = "DETAIL_INTENT_ID"
+const val DETAIL_RESPONSE_SUCCESS_EXTRA = "DETAIL_RESPONSE_SUCCESS_EXTRA"
+const val DETAIL_URL_MALFORMED_EXTRA = "DETAIL_URL_MALFORMED_EXTRA"
+const val DETAIL_RESPONSE_EMPTY_EXTRA = "DETAIL_RESPONSE_EMPTY_EXTRA"
+const val DETAIL_ERROR_REQUEST_EXTRA = "DETAIL_ERROR_REQUEST_EXTRA"
+const val DETAIL_ERROR_REQUEST_MESSAGE_EXTRA = "DETAIL_ERROR_REQUEST_MESSAGE_EXTRA"
+const val DETAIL_DATA_EMPTY_EXTRA = "DETAIL_DATA_EMPTY_EXTRA"
+const val DETAIL_INTENT_EMPTY_EXTRA = "DETAIL_INTENT_EMPTY_EXTRA"
+const val DETAIL_LOAD_RESULT_EXTRA = "DETAIL_LOAD_RESULT_EXTRA"
+const val DETAIL_TITLE_SUCCESS_EXTRA = "DETAIL_TITLE_SUCCESS_EXTRA"
+const val DETAIL_OVERVIEW_SUCCESS_EXTRA = "DETAIL_OVERVIEW_SUCCESS_EXTRA"
+const val DETAIL_POSTER_SUCCESS_EXTRA = "DETAIL_POSTER_SUCCESS_EXTRA"
+const val DETAIL_ID_SUCCESS_EXTRA = "DETAIL_ID_SUCCESS_EXTRA"
+const val DETAIL_RATING_SUCCESS_EXTRA = "DETAIL_RATING_SUCCESS_EXTRA"
 
 class MovieDetailFragment : Fragment() {
 
@@ -21,20 +39,17 @@ class MovieDetailFragment : Fragment() {
 
         const val ARG_MOVIE: String = "ARG_MOVIE"
 
-        // подход Kotlin
-        fun newInstance(movie: Movie) = MovieDetailFragment().apply {
+        fun newInstance(idMovie: Int) = MovieDetailFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(ARG_MOVIE, movie)
+                putInt(ARG_MOVIE, idMovie)
             }
         }
-        // подход Java
-//        fun newInstance(movie: Movie): MovieDetailFragment {
-//            val mdf = MovieDetailFragment()
-//            val data = Bundle()
-//            data.putParcelable(ARG_MOVIE, movie)
-//            mdf.arguments = data
-//            return mdf
-//        }
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        context?.registerReceiver(loadResultReceiver, IntentFilter(DETAIL_INTENT_FILTER))
     }
 
     override fun onCreateView(
@@ -48,32 +63,62 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Movie>(ARG_MOVIE)?.let { movie ->
-            with(binding) {
-                if (movie.poster != null) {
-                    detailsImage.setImageURI(Uri.parse(movie.poster))
-                }
-                detailsTitle.text = movie.name
-                detailsDescription.text = movie.description
+        arguments?.getInt(ARG_MOVIE)
+            ?.let {
+                getMovie(it)
             }
-        }}
+    }
 
-        //val movie = requireArguments().getParcelable(ARG_MOVIE) as? Movie
-
-//        with(binding) {
-//            if (movie != null) {
-//                if (movie.poster != null) {
-//                    detailsImage.setImageDrawable(movie.poster)
-//                }
-//                detailsTitle.text = movie.name
-//                detailsDescription.text = movie.description
-//            }
-//
-//        }
+    private fun getMovie(idMovie: Int) {
+        binding.detailsProgressBar.isVisible = true
+        context
+            ?.let {
+                it.startService(Intent(it, MoviesDetailsService::class.java)
+                    .apply {
+                        putExtra(DETAIL_INTENT_ID, idMovie)
+                    })
+            }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        context?.unregisterReceiver(loadResultReceiver)
     }
+
+    private val loadResultReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            when (intent?.getStringExtra(DETAIL_LOAD_RESULT_EXTRA)) {
+                DETAIL_INTENT_EMPTY_EXTRA -> TODO()
+                DETAIL_DATA_EMPTY_EXTRA -> TODO()
+                DETAIL_RESPONSE_EMPTY_EXTRA -> TODO()
+                DETAIL_ERROR_REQUEST_EXTRA -> TODO()
+                DETAIL_URL_MALFORMED_EXTRA -> TODO()
+                DETAIL_RESPONSE_SUCCESS_EXTRA -> display(
+                    Movie(
+                        name = intent.getStringExtra(DETAIL_TITLE_SUCCESS_EXTRA)!!,
+                        description = intent.getStringExtra(DETAIL_OVERVIEW_SUCCESS_EXTRA)!!,
+                        rating = intent.getDoubleExtra(DETAIL_RATING_SUCCESS_EXTRA,0.0),
+                        id = intent.getIntExtra(DETAIL_ID_SUCCESS_EXTRA,0),
+                        poster = intent.getStringExtra(DETAIL_POSTER_SUCCESS_EXTRA,)
+                    )
+                )
+                else -> TODO()
+            }
+        }
+    }
+
+    private fun display(movie: Movie) {
+        with(binding) {
+            if (movie.poster != null) {
+
+            }
+            detailsTitle.text = movie.name
+            detailsDescription.text = movie.description
+            detailsRating.rating = movie.rating.toFloat()
+        }
+    }
+
 }
 

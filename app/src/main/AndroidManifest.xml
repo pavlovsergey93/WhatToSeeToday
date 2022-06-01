@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gmail.pavlovsv93.whattoseetoday">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatToSeeToday">
+        <service
+            android:name=".MoviesDetailsService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <receiver android:name=".MovieDetailsBCReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=" "/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".view.WhatToSeeActivity"
             android:exported="true">

@@ -10,6 +10,7 @@ import com.gmail.pavlovsv93.whattoseetoday.view.rating.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
+const val BASE_URL = "https://api.themoviedb.org/3/movie/"
 
 class WhatToSeeActivity : AppCompatActivity() {
 
