@@ -1,7 +1,8 @@
 package com.gmail.pavlovsv93.whattoseetoday.model
 
 interface MovieInterfaceRepository {
-    fun getHomeMovies(): MutableList<Movie>
-    fun getFavoritesMovies(): MutableList<Movie>
-    fun getRatingMovies(): MutableList<Movie>
+
+    fun getPopularMovies(callback: Callback<MutableList<Movie>>)
+    fun getNewMovies(callback: Callback<MutableList<Movie>>)
+    fun getRatingMovies(callback: Callback<MutableList<Movie>>)
 }

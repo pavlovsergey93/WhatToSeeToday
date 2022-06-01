@@ -1,15 +1,19 @@
 package com.gmail.pavlovsv93.whattoseetoday
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
-class MoviesAdapter(private var onClickItem: HomeFragment.OnClickItem?) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(private var onClickItem: HomeFragment.OnClickItem?) :
+    RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     private var moviesList: MutableList<Movie> = mutableListOf()
 
@@ -37,17 +41,18 @@ class MoviesAdapter(private var onClickItem: HomeFragment.OnClickItem?) : Recycl
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(movie: Movie) {
-//            itemView.findViewById<RatingBar>(R.id.item_rating_bar).rating(movie.rating)
-//            if (movie.poster != null) {
-//                itemView.findViewById<ImageView>(R.id.item_image).setImageDrawable(movie.poster)
-//            }else{
-//                itemView.findViewById<ImageView>(R.id.item_image).setImageDrawable(R.drawable.ic_baseline_image_not_supported_24.toDrawable())
-//            }
+            itemView.findViewById<RatingBar>(R.id.item_rating_bar).rating = movie.rating.toFloat()
+            if (movie.poster != null || movie.poster != "") {
+                itemView.findViewById<ImageView>(R.id.item_image).setImageURI(Uri.parse(movie.poster))
+            }else{
+                itemView.findViewById<ImageView>(R.id.item_image).setImageDrawable(R.drawable.ic_baseline_image_not_supported_24.toDrawable())
+            }
             itemView.findViewById<TextView>(R.id.item_text_titel).text = movie.name
-            itemView.setOnClickListener { View ->
+            itemView.setOnClickListener {
                 onClickItem?.onClick(movie)
             }
         }
     }
 }
+
 

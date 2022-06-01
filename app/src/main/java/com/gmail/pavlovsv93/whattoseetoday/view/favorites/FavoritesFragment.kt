@@ -5,21 +5,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.gmail.pavlovsv93.whattoseetoday.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentFavoritesBinding
+import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
+import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeFavoritesViewModel
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeHomeViewModel
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 
 class FavoritesFragment : Fragment() {
 
-    private lateinit var favoritesViewModel: WhatToSeeFavoritesViewModel
+    private lateinit var favoritesViewModel: WhatToSeeViewModel
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
+
+    private val adapter = MoviesAdapter(object : HomeFragment.OnClickItem {
+        override fun onClick(movie : Movie){
+            val manager = requireActivity().supportFragmentManager
+            if(manager != null){
+                manager.beginTransaction()
+                    .replace(R.id.main_whattosee_container, MovieDetailFragment.newInstance(movie))
+                    .addToBackStack("HomeFragment")
+                    .commit()
+            }
+        }
+    })
 
     companion object {
         fun newInstance() = FavoritesFragment()
@@ -38,15 +57,33 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favoritesViewModel = ViewModelProvider(this).get(WhatToSeeFavoritesViewModel::class.java)
+        val recyclerView : RecyclerView = binding.fragmentFavoritesContainer
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.adapter = adapter
+
+        favoritesViewModel = ViewModelProvider(this).get(WhatToSeeViewModel::class.java)
         favoritesViewModel.getData().observe(viewLifecycleOwner, Observer { state ->
             renderData(state)
         })
+        favoritesViewModel.getPopularMovies()
     }
 
     private fun renderData(state : AppState) {
-        binding.fragmentFavoritesTextview.setText(R.string.message)
-        Toast.makeText(requireContext(), "get data", Toast.LENGTH_SHORT).show()
+        when (state) {
+            AppState.OnLoading -> binding.fragmentProgbarFavorites.isVisible = true
+            is AppState.OnError -> {
+                binding.fragmentFavoritesTextview.isVisible = true
+                binding.fragmentFavoritesTextview.text = R.string.error.toString()
+                view?.showSnackBarAction(state.toString(),getString(R.string.reload), {favoritesViewModel.getNewMovies()})
+            }
+            is AppState.OnSuccess -> {
+                adapter.setMovie(state.moviesData)
+                binding.fragmentProgbarFavorites.isVisible = false
+                if (state.moviesData?.size != 0) {
+                    binding.fragmentFavoritesTextview.isVisible = false
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
