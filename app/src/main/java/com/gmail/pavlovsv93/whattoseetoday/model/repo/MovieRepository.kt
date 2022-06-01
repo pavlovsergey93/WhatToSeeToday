@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.model
+package com.gmail.pavlovsv93.whattoseetoday.model.repo
 
 import android.os.Build
 import android.os.Looper
@@ -7,6 +7,10 @@ import java.util.concurrent.Executors
 import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.gmail.pavlovsv93.whattoseetoday.model.Callback
+import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
 import com.google.gson.Gson
@@ -17,8 +21,9 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
+import retrofit2.Call
 
-class MovieRepository : MovieInterfaceRepository {
+class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInterfaceRepository {
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
     private val handler = Handler(Looper.getMainLooper())
@@ -98,6 +103,14 @@ class MovieRepository : MovieInterfaceRepository {
                 urlConnection.disconnect()
             }
         }
+    }
+
+    override fun getCatalogMoviesRetrofit(catalog: String, lang: String, page: Int , callback: retrofit2.Callback<MoviesListDTO>) {
+        remoteDataSource.getMoviesCatalogRetrofit(catalog = catalog, lang = lang, page = page , callback = callback)
+    }
+
+    override fun getMovieRetrofit(idMovie: Int, lang: String, callback: retrofit2.Callback<MovieDTO>) {
+        remoteDataSource.getMovieDetailsRetrofit(idMovie = idMovie, lang = lang, callback = callback)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)

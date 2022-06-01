@@ -73,7 +73,8 @@ class HomeFragment : Fragment() {
         /*viewModel.getData().observe(viewLifecycleOwner, Observer { data ->
             renderData()
         })*/
-        homeViewModel.getNewMovies()
+        homeViewModel.getCatalogMoviesRetrofit("now_playing")
+        //homeViewModel.getNewMovies()
 
     }
 

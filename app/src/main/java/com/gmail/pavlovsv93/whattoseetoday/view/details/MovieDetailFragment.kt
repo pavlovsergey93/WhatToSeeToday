@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.gmail.pavlovsv93.whattoseetoday.MoviesDetailsService
+import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentMovieDetailBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE
+import com.squareup.picasso.Picasso
 
 const val DETAIL_INTENT_FILTER = "DETAIL_INTENT_FILTER"
 const val DETAIL_INTENT_ID = "DETAIL_INTENT_ID"
@@ -111,9 +113,11 @@ class MovieDetailFragment : Fragment() {
 
     private fun display(movie: Movie) {
         with(binding) {
-            if (movie.poster != null) {
-
-            }
+            detailsProgressBar.isVisible = false
+            Picasso.with(context)
+                .load(BASE_URL_IMAGE+movie.poster)
+                .placeholder(R.drawable.ic_baseline_image_not_supported_24)
+                .into(detailsImage)
             detailsTitle.text = movie.name
             detailsDescription.text = movie.description
             detailsRating.rating = movie.rating.toFloat()

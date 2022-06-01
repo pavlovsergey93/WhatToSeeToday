@@ -11,6 +11,9 @@ import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
 const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+const val BASE_URL_RETROFIT = "https://api.themoviedb.org/"
+const val BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500"
+const val BASE_URL_IMAGE1 = "https://image.tmdb.org/t/p/w500/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg"
 
 class WhatToSeeActivity : AppCompatActivity() {
 

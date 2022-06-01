@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatToSeeToday">
         <service
-            android:name=".MoviesDetailsService"
+            android:name=".view.details.MoviesDetailsService"
             android:enabled="true"
             android:exported="true"></service>
         <receiver android:name=".MovieDetailsBCReceiver"
