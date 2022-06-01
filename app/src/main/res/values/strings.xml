@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WhatToSeeToday</string>
+    <string name="main_whattosee_toolbar">What To See</string>
+    <string name="menu_btnnavview_home_title">Home</string>
+    <string name="menu_btnnavview_favorite_title">Favorites</string>
+    <string name="menu_btnnavview_rating_title">Rating</string>
+    <string name="item_title_movie">Название фильма Название фильма Название фильма Название фильма</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message">Все еще пусто</string>
 </resources>

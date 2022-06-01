@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com1/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_item_movie">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_item_movie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                tools:src="@drawable/ic_baseline_insert_chart_outlined_24"
+                android:layout_marginBottom="@dimen/margin_item_movie"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_text_titel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_item_movie"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                tools:text="@string/item_title_movie"
+                android:gravity="center"/>
+
+            <RatingBar
+                android:id="@+id/item_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="?android:attr/rating"
+                android:layout_marginTop="@dimen/margin_item_movie"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_item_movie">10dp</dimen>
+    <dimen name="margin_item_movie">8dp</dimen>
+    <dimen name="height_item_movie">60dp</dimen>
+    <dimen name="padding_fragment_recycler">8dp</dimen>
+    <dimen name="height_app_bar">300dp</dimen>
+    <dimen name="main_image_toolbar">200dp</dimen>
+    <dimen name="margin_bottom_toolbar">16dp</dimen>
+</resources>
