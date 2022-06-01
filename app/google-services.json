@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1047692699159",
+    "project_id": "whattoseetoday-259d9",
+    "storage_bucket": "whattoseetoday-259d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047692699159:android:76c4cb72eaa554917b9e52",
+        "android_client_info": {
+          "package_name": "com.gmail.pavlovsv93.whattoseetoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047692699159-ab2q9clubo8tokukrorbdmpe6rvettie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP8L8kAp2w3DCbtxXY1q1lM789KjDDAO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047692699159-ab2q9clubo8tokukrorbdmpe6rvettie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

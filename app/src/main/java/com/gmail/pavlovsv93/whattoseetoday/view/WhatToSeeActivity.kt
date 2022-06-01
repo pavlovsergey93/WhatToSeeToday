@@ -39,8 +39,11 @@ import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.*
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
+import com.google.firebase.installations.FirebaseInstallations
 import java.io.IOException
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
@@ -64,7 +67,6 @@ class WhatToSeeActivity : AppCompatActivity() {
         fun onClickFavorite(movie: Movie)
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -139,7 +141,7 @@ class WhatToSeeActivity : AppCompatActivity() {
                 R.id.menu_navview_contacts -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_whattosee_container, ContactsFragment.newInstance())
-                        .addToBackStack("Контакты")
+                        .addToBackStack("Contacts")
                         .commit()
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
@@ -147,7 +149,7 @@ class WhatToSeeActivity : AppCompatActivity() {
                 R.id.menu_navview_stars -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_whattosee_container, StarsFragment.newInstance())
-                        .addToBackStack("Контакты")
+                        .addToBackStack("Popular Stars")
                         .commit()
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
@@ -171,6 +173,7 @@ class WhatToSeeActivity : AppCompatActivity() {
                 //intent.setData(Uri.parse("tel:$number"));
 
             })
+        getToken()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -366,6 +369,21 @@ class WhatToSeeActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }.start()
+    }
+
+    private fun getToken(){
+        FirebaseInstallations.getInstance().id
+            .addOnCompleteListener(OnCompleteListener{task ->
+                if (!task.isSuccessful){
+                    // не удалось получить токен
+                    return@OnCompleteListener
+                }
+
+                //Полуен токен
+                val token = task.result!!
+
+                // Сохранить токен ...
+            })
     }
 
 }
