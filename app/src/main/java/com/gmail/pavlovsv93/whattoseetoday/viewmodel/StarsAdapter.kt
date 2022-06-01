@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.KnownFor
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.ResultDTO
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE_STARS
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL_IMAGE_STARS
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.StarsFragment
 import com.squareup.picasso.Picasso
 

@@ -6,10 +6,12 @@ import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentSettingBinding
 import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
-import com.gmail.pavlovsv93.whattoseetoday.utils.Const
+import com.gmail.pavlovsv93.whattoseetoday.R
+import com.gmail.pavlovsv93.whattoseetoday.utils.KEY_ADULT
 import com.gmail.pavlovsv93.whattoseetoday.utils.pullCheckSetting
 
 class SettingFragment : Fragment() {
@@ -47,12 +49,18 @@ class SettingFragment : Fragment() {
             SearchRecentSuggestions(context, BasSuggestionProvider.AUTHORITY, BasSuggestionProvider.MODE)
                 .clearHistory()
         }
+        binding.settingBtnBuyProVersion.setOnClickListener {
+            Toast.makeText(context, R.string.buy_pro, Toast.LENGTH_SHORT).show()
+        }
+        binding.settingBtnShowContacts.setOnClickListener {
+            Toast.makeText(context, R.string.show_contacts, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun isCheckedSwitch(isCheckSwitch: Boolean) {
         val prefs = activity?.getPreferences(Context.MODE_PRIVATE)
         val editor = prefs?.edit()
-        editor?.putBoolean(Const.KEY_ADULT, isCheckSwitch)
+        editor?.putBoolean(KEY_ADULT, isCheckSwitch)
         editor?.apply()
     }
 }

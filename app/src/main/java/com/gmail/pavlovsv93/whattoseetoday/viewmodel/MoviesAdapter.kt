@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.model.db.AppDB
-import com.gmail.pavlovsv93.whattoseetoday.model.db.MoviesEntity
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomInterfaceRepository
 import com.gmail.pavlovsv93.whattoseetoday.model.repo.RoomRepository
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL_IMAGE
 import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
 import com.squareup.picasso.Picasso
 

@@ -3,7 +3,7 @@ package com.gmail.pavlovsv93.whattoseetoday.service
 import android.app.IntentService
 import android.content.Intent
 import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
+import com.gmail.pavlovsv93.whattoseetoday.utils.API_KEY
 import com.gmail.pavlovsv93.whattoseetoday.view.details.*
 import com.google.gson.Gson
 import java.io.BufferedReader

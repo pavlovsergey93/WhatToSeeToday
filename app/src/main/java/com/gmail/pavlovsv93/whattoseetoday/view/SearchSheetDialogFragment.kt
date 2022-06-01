@@ -16,12 +16,9 @@ import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.utils.pullCheckSetting
 import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.text.FieldPosition
-import java.util.*
 
 class SearchSheetDialogFragment : BottomSheetDialogFragment() {
 

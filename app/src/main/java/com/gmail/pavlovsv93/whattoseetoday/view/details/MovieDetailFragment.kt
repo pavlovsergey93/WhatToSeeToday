@@ -14,7 +14,7 @@ import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentMovieDetailBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.service.MoviesDetailsService
-import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL_IMAGE_ORIGIN
+import com.gmail.pavlovsv93.whattoseetoday.utils.BASE_URL_IMAGE_ORIGIN
 import com.squareup.picasso.Picasso
 
 const val DETAIL_INTENT_FILTER = "DETAIL_INTENT_FILTER"

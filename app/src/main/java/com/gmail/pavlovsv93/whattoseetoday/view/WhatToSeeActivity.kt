@@ -18,14 +18,12 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
@@ -33,28 +31,18 @@ import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
 import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
 import com.gmail.pavlovsv93.whattoseetoday.model.Contact
-import com.gmail.pavlovsv93.whattoseetoday.utils.getPermission
-import com.gmail.pavlovsv93.whattoseetoday.utils.showRationaleDialog
+import com.gmail.pavlovsv93.whattoseetoday.utils.*
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.installations.FirebaseInstallations
 import java.io.IOException
 
-const val API_KEY = BuildConfig.TMDB_API_KEY
-const val BASE_URL = "https://api.themoviedb.org/3/movie/"
-const val BASE_URL_RETROFIT = "https://api.themoviedb.org/"
-const val BASE_URL_IMAGE = "https://image.tmdb.org/t/p/w500"
-const val BASE_URL_IMAGE_ORIGIN = "https://image.tmdb.org/t/p/original"
-const val BASE_URL_IMAGE_STARS = "https://image.tmdb.org/t/p/original"
-const val TAG_SHEET = "SearchSheetDialogFragment"
-const val REFRESH_PERIOD = 60000L
-const val MINIMAL_DISTANCE = 100f
+const val BACK_STACK_TRUE = true
+const val BACK_STACK_FALSE = false
 
 class WhatToSeeActivity : AppCompatActivity() {
 
@@ -75,9 +63,7 @@ class WhatToSeeActivity : AppCompatActivity() {
         setContentView(view)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-                .commit()
+            showFragment(HomeFragment.newInstance(), BACK_STACK_FALSE)
         }
 
         val toolbar = binding.mainToolbar
@@ -89,21 +75,15 @@ class WhatToSeeActivity : AppCompatActivity() {
         mapflag.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_btnnavview_home -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
-                        .commit()
+                    showFragment(HomeFragment.newInstance(), BACK_STACK_FALSE)
                     true
                 }
                 R.id.menu_btnnavview_favorite -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, FavoritesFragment.newInstance())
-                        .commit()
+                    showFragment(FavoritesFragment.newInstance(), BACK_STACK_FALSE)
                     true
                 }
                 R.id.menu_btnnavview_rating -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, RatingFragment.newInstance())
-                        .commit()
+                    showFragment(RatingFragment.newInstance(), BACK_STACK_FALSE)
                     true
                 }
                 else -> false
@@ -123,35 +103,19 @@ class WhatToSeeActivity : AppCompatActivity() {
         binding.mainNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_navview_setting -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, SettingFragment.newInstance())
-                        .addToBackStack("Setting")
-                        .commit()
-                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    showFragment(SettingFragment.newInstance(), BACK_STACK_TRUE)
                     true
                 }
                 R.id.menu_navview_journal -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, JournalFragment.newInstance())
-                        .addToBackStack("Journal")
-                        .commit()
-                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    showFragment(JournalFragment.newInstance(), BACK_STACK_TRUE)
                     true
                 }
                 R.id.menu_navview_contacts -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, ContactsFragment.newInstance())
-                        .addToBackStack("Contacts")
-                        .commit()
-                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    showFragment(ContactsFragment.newInstance(),BACK_STACK_TRUE)
                     true
                 }
                 R.id.menu_navview_stars -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_whattosee_container, StarsFragment.newInstance())
-                        .addToBackStack("Popular Stars")
-                        .commit()
-                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    showFragment(StarsFragment.newInstance(), BACK_STACK_TRUE)
                     true
                 }
                 else -> false
@@ -174,6 +138,16 @@ class WhatToSeeActivity : AppCompatActivity() {
 
             })
         getToken()
+    }
+
+    private fun showFragment(fragment: Fragment, backstack: Boolean) {
+        val fm = supportFragmentManager.beginTransaction()
+            fm.replace(R.id.main_whattosee_container, fragment)
+        if (backstack) {
+            fm.addToBackStack("Popular Stars")
+        }
+            fm.commit()
+        binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -273,6 +247,7 @@ class WhatToSeeActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingPermission")
     private fun getGeoLocation() {
         this?.let { context ->
             if (ContextCompat.checkSelfPermission(
@@ -371,10 +346,10 @@ class WhatToSeeActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun getToken(){
+    private fun getToken() {
         FirebaseInstallations.getInstance().id
-            .addOnCompleteListener(OnCompleteListener{task ->
-                if (!task.isSuccessful){
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
                     // не удалось получить токен
                     return@OnCompleteListener
                 }
