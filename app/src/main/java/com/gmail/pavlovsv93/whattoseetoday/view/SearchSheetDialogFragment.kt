@@ -46,6 +46,7 @@ class SearchSheetDialogFragment : BottomSheetDialogFragment() {
                     )
                     .addToBackStack("HomeFragment")
                     .commit()
+                dismiss()
             }
         }
 
@@ -94,8 +95,6 @@ class SearchSheetDialogFragment : BottomSheetDialogFragment() {
 
         searchViewModel.getData().observe(viewLifecycleOwner, observer)
 
-
-
         arguments?.getString(ARG_FIND)?.let {
             searchViewModel.findMoviesOnDB(it, activity?.pullCheckSetting(activity)!!)
         }
@@ -130,6 +129,7 @@ class SearchSheetDialogFragment : BottomSheetDialogFragment() {
                 if (data.moviesData.size != 0) {
                     binding.textviewSheet.isVisible = false
                 }
+
             }
         }
     }

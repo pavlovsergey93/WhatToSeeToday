@@ -6,8 +6,11 @@
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.140625" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/ic_baseline_image_not_supported_24.xml" value="0.18425925925925926" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/drawable/roundedbutton.xml" value="0.140625" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/font/font.xml" value="0.28" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/font/monserrat_bold.xml" value="0.28" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/activity_main.xml" value="0.11614583333333334" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/activity_what_to_see.xml" value="0.152" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_contacts.xml" value="0.25416666666666665" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_favorites.xml" value="0.128125" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_home.xml" value="0.152" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_journal.xml" value="0.264" />
@@ -18,6 +21,7 @@
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_search_sheet_dialog.xml" value="0.12447916666666667" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/fragment_what_to_see.xml" value="0.14945652173913043" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_contact.xml" value="0.25416666666666665" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_feed.xml" value="0.12760416666666666" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_journal.xml" value="0.176" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/layout/item_movie.xml" value="0.5720823798627003" />
@@ -25,6 +29,7 @@
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/menu_btn_navig_view.xml" value="0.25052083333333336" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/menu_toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/menu/nav_menu.xml" value="0.264" />
+        <entry key="..\:/GB/WhatToSeeToday/app/src/main/res/xml/searchable.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

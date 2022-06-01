@@ -3,6 +3,7 @@
     package="com.gmail.pavlovsv93.whattoseetoday">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".model.db.AppDB"
@@ -15,19 +16,28 @@
         <service
             android:name=".service.MoviesDetailsService"
             android:enabled="true"
-            android:exported="true"></service>
-        <receiver android:name=".service.MovieDetailsBCReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".service.MovieDetailsBCReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name=" "/>
+                <action android:name=" " />
             </intent-filter>
         </receiver>
 
+        <provider
+            android:name=".BasSuggestionProvider"
+            android:authorities="com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider" />
         <activity
             android:name=".view.WhatToSeeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

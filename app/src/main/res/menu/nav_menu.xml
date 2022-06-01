@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="@string/menu_navview_journal_title"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_navview_contacts"
+        android:icon="@drawable/ic_baseline_contact_phone_24"
+        android:title="@string/menu_navview_journal_contacts"
+        app:showAsAction="always" />
 </menu>

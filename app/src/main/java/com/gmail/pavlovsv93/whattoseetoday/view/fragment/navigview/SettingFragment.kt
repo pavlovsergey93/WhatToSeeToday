@@ -1,18 +1,16 @@
 package com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview
 
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentSettingBinding
+import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
 import com.gmail.pavlovsv93.whattoseetoday.utils.Const
 import com.gmail.pavlovsv93.whattoseetoday.utils.pullCheckSetting
-import com.gmail.pavlovsv93.whattoseetoday.view.TAG_SHEET
 
 class SettingFragment : Fragment() {
 
@@ -44,6 +42,10 @@ class SettingFragment : Fragment() {
 //                Log.d(TAG_SHEET, "isChecked ${buttonView.text.toString()} OFF")
 //            }
             isCheckedSwitch(isChecked)
+        }
+        binding.settingBtnCleanHistoryFind.setOnClickListener {
+            SearchRecentSuggestions(context, BasSuggestionProvider.AUTHORITY, BasSuggestionProvider.MODE)
+                .clearHistory()
         }
     }
 

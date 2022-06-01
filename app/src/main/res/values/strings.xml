@@ -22,4 +22,9 @@
     <string name="search">Поиск</string>
     <string name="text_sheet">Not find :(</string>
     <string name="setting_textview">Детский режим</string>
+    <string name="search_hint">Найти фильм?</string>
+    <string name="btn_clean_history">Очистить историю поиска</string>
+    <string name="app_label">WhatToSeeToday</string>
+    <string name="menu_navview_journal_contacts">Контактная книжка</string>
+    <string name="is_empty_contact">Contact not find!</string>
 </resources>

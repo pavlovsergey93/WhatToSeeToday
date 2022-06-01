@@ -24,9 +24,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures{
-        viewBinding true
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -39,6 +36,9 @@ android {
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
         def apiKey = properties.getProperty("tmdb_api_key3", "")
         it.buildConfigField "String", "TMDB_API_KEY", apiKey
+    }
+    buildFeatures{
+        viewBinding true
     }
 
 }

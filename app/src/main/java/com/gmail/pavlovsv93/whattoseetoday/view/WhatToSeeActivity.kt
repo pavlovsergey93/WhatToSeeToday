@@ -1,29 +1,29 @@
 package com.gmail.pavlovsv93.whattoseetoday.view
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.nfc.Tag
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentResultListener
 import com.gmail.pavlovsv93.whattoseetoday.BuildConfig
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.ActivityWhatToSeeBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarNoAction
+import com.gmail.pavlovsv93.whattoseetoday.BasSuggestionProvider
+import com.gmail.pavlovsv93.whattoseetoday.model.Contact
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.FavoritesFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.RatingFragment
 import com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu.HomeFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.JournalFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.SettingFragment
+import com.gmail.pavlovsv93.whattoseetoday.view.fragment.navigview.*
 
 const val API_KEY = BuildConfig.TMDB_API_KEY
 const val BASE_URL = "https://api.themoviedb.org/3/movie/"
@@ -41,19 +41,24 @@ class WhatToSeeActivity : AppCompatActivity() {
         fun onClickFavorite(movie: Movie)
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val view = binding.root
+        setContentView(view)
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_whattosee_container, HomeFragment.newInstance())
                 .commit()
         }
 
-        binding = ActivityWhatToSeeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        val toolbar = binding.mainToolbar
+        setSupportActionBar(toolbar)
+
+        handleIntent(intent)
 
         binding.mainBottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -78,10 +83,6 @@ class WhatToSeeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        val toolbar = binding.mainToolbar
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
 
         val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -111,23 +112,58 @@ class WhatToSeeActivity : AppCompatActivity() {
                     binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
+                R.id.menu_navview_contacts -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_whattosee_container, ContactsFragment.newInstance())
+                        .addToBackStack("Контакты")
+                        .commit()
+                    binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 else -> false
             }
-
         }
+        supportFragmentManager.setFragmentResultListener(
+            KEY_CONTACT_NUMBER,
+            this,
+            FragmentResultListener { requestKey, result ->
+                val contact = result.getParcelable<Contact>(ARG_CONTACT_NUMBER)
+                val number = contact?.number
+                if (number != null) {
+                    val intentR = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$number"))
+                    if (intent.resolveActivity(packageManager) != null) {
+                        startActivity(intentR);
+                    }
+                }
+                // или так
+                //intent.setData(Uri.parse("tel:$number"));
 
+            })
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         menuInflater.inflate(R.menu.menu_toolbar, menu)
 
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        val searchInfo = searchManager.getSearchableInfo(componentName)
         val searchView = menu?.findItem(R.id.search_bar)?.actionView as SearchView
-        searchView.queryHint = "Search"
+        searchView.setSearchableInfo(searchInfo)
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                SearchSheetDialogFragment.newInstance(query.toString()).show(supportFragmentManager, TAG_SHEET)
+                SearchRecentSuggestions(
+                    this@WhatToSeeActivity,
+                    BasSuggestionProvider.AUTHORITY,
+                    BasSuggestionProvider.MODE
+                ).saveRecentQuery(query, null)
+                SearchSheetDialogFragment.newInstance(query.toString())
+                    .show(supportFragmentManager, TAG_SHEET)
                 return false
             }
 
@@ -139,6 +175,12 @@ class WhatToSeeActivity : AppCompatActivity() {
         })
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (Intent.ACTION_SEARCH == intent?.action) {
+            intent.getStringExtra(SearchManager.QUERY)
+        }
     }
 
 }

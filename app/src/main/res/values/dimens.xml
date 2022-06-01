@@ -15,4 +15,6 @@
     <dimen name="radius_item_back">10dp</dimen>
     <dimen name="margin_navview">20dp</dimen>
     <dimen name="padding_search">30dp</dimen>
+    <dimen name="padding_contact_number">6dp</dimen>
+    <dimen name="size_text_contact_name">20sp</dimen>
 </resources>
