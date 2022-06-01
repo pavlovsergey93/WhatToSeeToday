@@ -8,9 +8,8 @@ import android.os.Handler
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.*
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
 import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
 import com.gmail.pavlovsv93.whattoseetoday.view.BASE_URL
 import com.google.gson.Gson
@@ -21,7 +20,6 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
-import retrofit2.Call
 
 class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInterfaceRepository {
 
@@ -113,6 +111,8 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
         remoteDataSource.getMovieDetailsRetrofit(idMovie = idMovie, lang = lang, callback = callback)
     }
 
+
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun getData(uri: String, page: Int = 1): String {
 
@@ -133,11 +133,21 @@ class MovieRepository(private val remoteDataSource: RemoteDataSource) : MovieInt
                     name = movieDTO.title,
                     description = movieDTO.overview,
                     poster = BASE_URL + movieDTO.id + "/image?api_key="+ API_KEY,
-                    rating = movieDTO.vote_average
+                    rating = movieDTO.vote_average,
+                    date = movieDTO.release_date
                 )
             )
         }
         return moviesList
+    }
+    override fun findMoviesOnDB(
+        findStr: String,
+        lang: String,
+        page: Int,
+        includeAdult: Boolean,
+        callback: retrofit2.Callback<MoviesListDTO>
+    ) {
+        remoteDataSource.findMovies(query = findStr, lang = lang, page = page, includeAdult = includeAdult,callback = callback)
     }
 
 }

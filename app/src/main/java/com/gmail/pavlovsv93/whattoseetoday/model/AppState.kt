@@ -1,6 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday.viewmodel
-
-import com.gmail.pavlovsv93.whattoseetoday.model.Movie
+package com.gmail.pavlovsv93.whattoseetoday.model
 
 sealed class AppState{
     data class OnSuccess(val moviesData: MutableList<Movie>) : AppState()

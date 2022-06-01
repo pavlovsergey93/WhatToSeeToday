@@ -11,4 +11,15 @@
     <string name="error">Ошибка загрузки!</string>
     <string name="reload">Перезагрузить</string>
     <string name="tools_text">Популярные</string>
+    <string name="num_stars">1</string>
+    <string name="step_stars">0.1</string>
+    <string name="rating">8.9</string>
+    <string name="btn_text_home"><![CDATA[ЕЩЕ >>>]]></string>
+    <string name="new_movies">Новинки</string>
+    <string name="menu_navview_setting_title">Настройки</string>
+    <string name="menu_navview_journal_title">Журнал</string>
+    <string name="is_empty">History is empty!</string>
+    <string name="search">Поиск</string>
+    <string name="text_sheet">Not find :(</string>
+    <string name="setting_textview">Детский режим</string>
 </resources>

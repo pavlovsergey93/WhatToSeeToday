@@ -1,25 +1,23 @@
-package com.gmail.pavlovsv93.whattoseetoday.view.rating
+package com.gmail.pavlovsv93.whattoseetoday.view.fragment.menu
 
 import android.os.Bundle
-import android.os.RecoverySystem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gmail.pavlovsv93.whattoseetoday.MoviesAdapter
+import com.gmail.pavlovsv93.whattoseetoday.viewmodel.MoviesAdapter
 import com.gmail.pavlovsv93.whattoseetoday.R
 import com.gmail.pavlovsv93.whattoseetoday.databinding.FragmentRatingBinding
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.showSnackBarAction
+import com.gmail.pavlovsv93.whattoseetoday.utils.showSnackBarAction
 import com.gmail.pavlovsv93.whattoseetoday.view.details.MovieDetailFragment
-import com.gmail.pavlovsv93.whattoseetoday.view.home.HomeFragment
-import com.gmail.pavlovsv93.whattoseetoday.viewmodel.AppState
+import com.gmail.pavlovsv93.whattoseetoday.model.AppState
+import com.gmail.pavlovsv93.whattoseetoday.view.WhatToSeeActivity
 import com.gmail.pavlovsv93.whattoseetoday.viewmodel.WhatToSeeViewModel
 
 class RatingFragment : Fragment() {
@@ -29,8 +27,12 @@ class RatingFragment : Fragment() {
 
     private lateinit var ratingViewModel: WhatToSeeViewModel
 
-    private val adapter = MoviesAdapter(object : HomeFragment.OnClickItem {
-        override fun onClick(movie : Movie){
+    private val adapter = MoviesAdapter(object : WhatToSeeActivity.OnClickItem {
+        override fun onClick(movie: Movie){
+            if(ratingViewModel.findItemInJournal(idMovie = movie.id)){
+                ratingViewModel.delMovieOnJournal(idMovie = movie.id)
+            }
+            ratingViewModel.setMovieInJournal(movie = movie)
             val manager = requireActivity().supportFragmentManager
             if(manager != null){
                 manager.beginTransaction()
@@ -38,6 +40,15 @@ class RatingFragment : Fragment() {
                     .addToBackStack("RatingFragment")
                     .commit()
             }
+        }
+
+        override fun onClickFavorite(movie: Movie) {
+            if (!ratingViewModel.findItemInMovieDB(movie.id)) {
+                ratingViewModel.setMovieInFavorite(movie)
+            } else {
+                ratingViewModel.delMovieOnFavorite(idMovie = movie.id)
+            }
+            showUpdateItem(movie)
         }
     })
 
@@ -58,7 +69,7 @@ class RatingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView = binding.fragmentRatingContainer
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.adapter = adapter
 
         ratingViewModel = ViewModelProvider(this).get(WhatToSeeViewModel::class.java)
@@ -84,6 +95,10 @@ class RatingFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun showUpdateItem(movie: Movie){
+        adapter.notifyItemChanged(adapter.updateItem(movie))
     }
 
     override fun onDestroy() {

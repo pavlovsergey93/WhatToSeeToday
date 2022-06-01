@@ -2,24 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/padding_fragment_recycler">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_favorites_container"
+        android:id="@+id/recyclerview_journal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"/>
+        android:layout_margin="@dimen/margin_item_movie" />
 
     <TextView
-        android:id="@+id/fragment_favorites_textview"
+        android:id="@+id/journal_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Favorites is empty" />
+        android:text="@string/is_empty" />
 
     <ProgressBar
-        android:id="@+id/fragment_progbar_favorites"
+        android:id="@+id/journal_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

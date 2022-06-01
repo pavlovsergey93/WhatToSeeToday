@@ -9,4 +9,10 @@
     <dimen name="margin_bottom_toolbar">16dp</dimen>
     <dimen name="size_item_image_horizont">150dp</dimen>
     <dimen name="size_item_image_vertical">70dp</dimen>
+    <dimen name="size_text_item_movie">16sp</dimen>
+    <dimen name="size_rating_stars">20dp</dimen>
+    <dimen name="size_text_item_rating">15sp</dimen>
+    <dimen name="radius_item_back">10dp</dimen>
+    <dimen name="margin_navview">20dp</dimen>
+    <dimen name="padding_search">30dp</dimen>
 </resources>

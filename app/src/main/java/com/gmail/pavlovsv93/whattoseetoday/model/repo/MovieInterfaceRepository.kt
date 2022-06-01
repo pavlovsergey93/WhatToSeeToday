@@ -2,8 +2,8 @@ package com.gmail.pavlovsv93.whattoseetoday.model.repo
 
 import com.gmail.pavlovsv93.whattoseetoday.model.Callback
 import com.gmail.pavlovsv93.whattoseetoday.model.Movie
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
 
 interface MovieInterfaceRepository {
 
@@ -13,4 +13,5 @@ interface MovieInterfaceRepository {
 
     fun getCatalogMoviesRetrofit(catalog: String, lang: String = "ru-RU", page: Int = 1,callback: retrofit2.Callback<MoviesListDTO>)
     fun getMovieRetrofit(idMovie: Int, lang: String = "ru-RU", callback: retrofit2.Callback<MovieDTO>)
+    fun findMoviesOnDB(findStr: String, lang: String = "ru-RU", page: Int = 1, includeAdult: Boolean, callback: retrofit2.Callback<MoviesListDTO>)
 }

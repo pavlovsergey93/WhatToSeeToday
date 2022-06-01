@@ -1,4 +1,4 @@
-package com.gmail.pavlovsv93.whattoseetoday
+package com.gmail.pavlovsv93.whattoseetoday.service
 
 import android.content.BroadcastReceiver
 import android.content.Context

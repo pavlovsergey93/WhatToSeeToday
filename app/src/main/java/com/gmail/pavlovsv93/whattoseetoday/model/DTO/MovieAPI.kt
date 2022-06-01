@@ -1,12 +1,9 @@
 package com.gmail.pavlovsv93.whattoseetoday.model.repo
 
-import com.gmail.pavlovsv93.whattoseetoday.model.MovieDTO
-import com.gmail.pavlovsv93.whattoseetoday.model.MoviesListDTO
-import com.gmail.pavlovsv93.whattoseetoday.view.API_KEY
-import com.google.gson.reflect.TypeToken
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MovieDTO
+import com.gmail.pavlovsv93.whattoseetoday.model.DTO.MoviesListDTO
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -25,4 +22,13 @@ interface MovieDatabaseAPI {
         @Query("api_key") apiKey: String,
         @Query("language") lang: String
     ): Call<MovieDTO>
+
+    @GET("3/search/movie?")
+    fun getFindMovies(
+        @Query("api_key") apiKey: String,
+        @Query("language") lang: String,
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("include_adult") includeAdult: Boolean
+    ): Call<MoviesListDTO>
 }
